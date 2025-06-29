@@ -490,7 +490,6 @@
       const query = document.getElementById('search-input').value;
       if (query.trim()) {
         alert('Mencari: ' + query);
-        // Implementasi pencarian sebenarnya dapat ditambahkan di sini
         searchModal.style.display = 'none';
         document.getElementById('search-input').value = '';
       } else {
@@ -498,13 +497,20 @@
       }
     }
 
-    // Login function (placeholder)
+    // Login function
     function login() {
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
+      const validUsername = 'admin';
+      const validPassword = '1234';
+
       if (username && password) {
-        alert('Login berhasil: ' + username);
-        // Implementasi login sebenarnya dapat ditambahkan di sini
+        if (username === validUsername && password === validPassword) {
+          alert('Login berhasil: ' + username);
+          window.location.href = 'dashboard.html';
+        } else {
+          alert('Username atau password salah!');
+        }
         document.getElementById('username').value = '';
         document.getElementById('password').value = '';
       } else {
