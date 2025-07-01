@@ -97,7 +97,15 @@
     .sidebar-nav {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 5px;
+    }
+
+    .sidebar-nav > ul {
+      list-style: none;
+    }
+
+    .sidebar-nav > ul > li {
+      position: relative;
     }
 
     .sidebar-nav a {
@@ -105,9 +113,10 @@
       text-decoration: none;
       font-size: 1rem;
       padding: 10px 15px;
-      border-radius: 4px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      border-radius: 4px;
     }
 
     .sidebar-nav a:hover {
@@ -116,6 +125,35 @@
 
     .sidebar-nav a i {
       margin-right: 10px;
+    }
+
+    .sidebar-nav .menu-toggle .arrow {
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar-nav .menu-toggle.active .arrow {
+      transform: rotate(90deg);
+    }
+
+    .sidebar-nav ul ul {
+      display: none;
+      background: var(--primary);
+      position: absolute;
+      left: 100%;
+      top: 0;
+      width: 200px;
+      padding: 5px 0;
+      border-radius: 4px;
+    }
+
+    .sidebar-nav ul ul ul {
+      left: 100%;
+      top: 0;
+      width: 180px;
+    }
+
+    .sidebar-nav li.active > ul {
+      display: block;
     }
 
     /* Header */
@@ -130,6 +168,7 @@
       top: 0;
       z-index: 900;
       margin-left: 250px;
+      transition: margin-left 0.3s ease;
     }
 
     .header-left {
@@ -154,52 +193,19 @@
     }
 
     .hamburger {
-      display: none;
       font-size: 1.5rem;
       cursor: pointer;
-    }
-
-    /* Search Modal */
-    .modal {
       display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      z-index: 1001;
-      justify-content: center;
-      align-items: center;
+      transition: all 0.3s ease;
     }
 
-    .modal-content {
-      background: var(--card-bg);
-      padding: 20px;
-      border-radius: 8px;
-      width: 90%;
-      max-width: 500px;
+    .hamburger.active {
+      display: inline-block;
     }
 
-    .modal-content input {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    .modal-content button {
-      padding: 10px 20px;
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 4px;
+    .hamburger.close {
+      font-size: 1.5rem;
       cursor: pointer;
-    }
-
-    .modal-content button:hover {
-      background: var(--secondary);
     }
 
     /* Main Content */
@@ -207,6 +213,7 @@
       margin-left: 250px;
       padding: 20px;
       flex: 1;
+      transition: margin-left 0.3s ease;
     }
 
     .dashboard-grid {
@@ -256,45 +263,6 @@
       width: 100%;
     }
 
-    .footer-box {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 40px 20px;
-      max-width: 1200px;
-      margin: auto;
-      gap: 20px;
-    }
-
-    .footer-col {
-      flex: 1 1 250px;
-      margin: 15px;
-      text-align: left;
-      min-width: 200px;
-    }
-
-    .footer-col h4 {
-      margin-bottom: 15px;
-      color: var(--secondary);
-      font-size: 1.1rem;
-    }
-
-    .footer-col p, .footer-col a {
-      color: #ccc;
-      font-size: 0.9rem;
-      line-height: 1.8;
-      text-decoration: none;
-    }
-
-    .footer-col a:hover {
-      color: white;
-    }
-
-    .footer-col i {
-      margin-right: 10px;
-    }
-
     .footer-bottom {
       background-color: var(--footer-bg);
       text-align: center;
@@ -323,6 +291,18 @@
     }
 
     /* Responsive Design */
+    @media (max-width: 1024px) {
+      .sidebar-nav ul ul {
+        position: static;
+        width: 100%;
+        display: none;
+      }
+
+      .sidebar-nav li.active > ul {
+        display: block;
+      }
+    }
+
     @media (max-width: 768px) {
       .sidebar {
         transform: translateX(-100%);
@@ -338,7 +318,6 @@
 
       header, .main-content {
         margin-left: 0;
-        width: 100%;
       }
 
       .dashboard-grid {
@@ -346,7 +325,7 @@
       }
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 480px) {
       .main-content {
         padding: 15px;
       }
@@ -357,16 +336,6 @@
 
       .chart-container {
         height: 150px;
-      }
-
-      .footer-box {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
-
-      .footer-col {
-        margin: 10px 0;
       }
     }
   </style>
@@ -381,9 +350,49 @@
   <div class="sidebar" id="sidebar">
     <div class="sidebar-header">Dashboard Desa</div>
     <div class="sidebar-nav">
-      <a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
-      <a href="statistics.html"><i class="fas fa-chart-bar"></i> Statistik</a>
-      <a href="index.html"><i class="fas fa-sign-out-alt"></i> Kembali ke Beranda</a>
+      <ul>
+        <li><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li>
+          <a href="#" class="menu-toggle"><i class="fas fa-chart-bar"></i> Statistik <i class="fas fa-angle-right arrow"></i></a>
+          <ul>
+            <li><a href="statistics.html">Data Statistik</a></li>
+            <li>
+              <a href="#" class="menu-toggle">Laporan <i class="fas fa-angle-right arrow"></i></a>
+              <ul>
+                <li><a href="#">Laporan Bulanan</a></li>
+                <li><a href="#">Laporan Tahunan</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#" class="menu-toggle"><i class="fas fa-envelope"></i> Surat <i class="fas fa-angle-right arrow"></i></a>
+          <ul>
+            <li><a href="surat-masuk.html">Surat Masuk</a></li>
+            <li>
+              <a href="#" class="menu-toggle">Surat Keluar <i class="fas fa-angle-right arrow"></i></a>
+              <ul>
+                <li><a href="#">Arsip Surat</a></li>
+                <li><a href="#">Pengaturan Surat</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#" class="menu-toggle"><i class="fas fa-cog"></i> Pengaturan <i class="fas fa-angle-right arrow"></i></a>
+          <ul>
+            <li><a href="#">Profil Desa</a></li>
+            <li>
+              <a href="#" class="menu-toggle">Keamanan <i class="fas fa-angle-right arrow"></i></a>
+              <ul>
+                <li><a href="#">Ubah Kata Sandi</a></li>
+                <li><a href="#">Log Aktivitas</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="index.html"><i class="fas fa-sign-out-alt"></i> Kembali ke Beranda</a></li>
+      </ul>
     </div>
   </div>
 
@@ -438,24 +447,6 @@
 
   <!-- Footer -->
   <footer>
-    <div class="footer-box">
-      <div class="footer-col">
-        <h4>Profil Desa</h4>
-        <p>Desa Gringsing merupakan desa yang berlokasi di Kabupaten Batang, Jawa Tengah. Berbasis pertanian dan UMKM.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Kontak</h4>
-        <p><i class="fas fa-map-marker-alt"></i> Balai Desa Gringsing, Batang</p>
-        <p><i class="fas fa-phone"></i> (0295) 123456</p>
-        <p><i class="fas fa-envelope"></i> info@gringsing.desa.id</p>
-      </div>
-      <div class="footer-col">
-        <h4>Sosial Media</h4>
-        <a href="#"><i class="fab fa-facebook"></i> Facebook</a><br/>
-        <a href="#"><i class="fab fa-instagram"></i> Instagram</a><br/>
-        <a href="#"><i class="fab fa-youtube"></i> YouTube</a>
-      </div>
-    </div>
     <div class="footer-bottom">
       © 2025 Pemerintah Desa Gringsing. Semua Hak Dilindungi.
     </div>
@@ -473,8 +464,20 @@
     // Sidebar toggle
     const hamburger = document.getElementById('hamburger');
     const sidebar = document.getElementById('sidebar');
+    const header = document.querySelector('header');
+    const mainContent = document.querySelector('.main-content');
     hamburger.addEventListener('click', () => {
-      sidebar.classList.toggle('active');
+      const isActive = sidebar.classList.toggle('active');
+      hamburger.classList.toggle('close', isActive);
+      if (isActive) {
+        hamburger.classList.remove('fa-bars');
+        hamburger.classList.add('fa-times');
+      } else {
+        hamburger.classList.remove('fa-times');
+        hamburger.classList.add('fa-bars');
+      }
+      header.classList.toggle('shifted');
+      mainContent.classList.toggle('shifted');
     });
 
     // Dark mode toggle
@@ -500,6 +503,43 @@
       alert('Logout berhasil');
       window.location.href = 'index.html';
     }
+
+    // Menu toggle functionality with arrow
+    document.querySelectorAll('.menu-toggle').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        const parentLi = item.parentElement;
+        parentLi.classList.toggle('active');
+
+        // Rotate arrow icon
+        const arrow = item.querySelector('.arrow');
+        if (parentLi.classList.contains('active')) {
+          arrow.style.transform = 'rotate(90deg)';
+        } else {
+          arrow.style.transform = 'rotate(0deg)';
+        }
+
+        // Close other open submenus at the same level
+        const parentUl = parentLi.parentElement;
+        parentUl.querySelectorAll('li').forEach(siblingLi => {
+          if (siblingLi !== parentLi && siblingLi.classList.contains('active')) {
+            siblingLi.classList.remove('active');
+            const siblingArrow = siblingLi.querySelector('.arrow');
+            if (siblingArrow) siblingArrow.style.transform = 'rotate(0deg)';
+          }
+        });
+
+        // Keep parent submenu open if this is a level 2 or 3 menu
+        if (parentLi.parentElement.tagName === 'UL' && parentLi.parentElement.parentElement.tagName === 'LI') {
+          const grandParentLi = parentLi.parentElement.parentElement;
+          if (!grandParentLi.classList.contains('active')) {
+            grandParentLi.classList.add('active');
+            const grandParentArrow = grandParentLi.querySelector('.arrow');
+            if (grandParentArrow) grandParentArrow.style.transform = 'rotate(90deg)';
+          }
+        }
+      });
+    });
 
     // Chart.js Configurations
     const donutCtx = document.getElementById('donutChart').getContext('2d');
