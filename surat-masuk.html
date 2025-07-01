@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Surat Masuk - Desa Gringsing</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --primary: #2c3e50;
+      --secondary: #1abc9c;
+      --accent: #27ae60;
+      --text: #333;
+      --bg-light: #f5f7fa;
+      --card-bg: #ffffff;
+      --footer-bg: #1f2c39;
+    }
+
+    [data-theme="dark"] {
+      --primary: #34495e;
+      --text: #e0e0e0;
+      --bg-light: #1a1a1a;
+      --card-bg: #2d2d2d;
+      --footer-bg: #111111;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: all 0.3s ease;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      background: var(--primary);
+      color: white;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 20px 10px;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar.active {
+      transform: translateX(-100%);
+    }
+
+    .sidebar-header {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .sidebar-nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 10px 15px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+    }
+
+    .sidebar-nav a:hover {
+      background: var(--secondary);
+    }
+
+    .sidebar-nav a i {
+      margin-right: 10px;
+    }
+
+    /* Header */
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 900;
+      margin-left: 250px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .header-right i {
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .header-right i:hover {
+      color: var(--secondary);
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: 250px;
+      padding: 20px;
+      flex: 1;
+    }
+
+    .table-container {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .table-container h2 {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+      border-left: 4px solid var(--accent);
+      padding-left: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background: var(--primary);
+      color: white;
+    }
+
+    tr:hover {
+      background: #f5f5f5;
+    }
+
+    .download-btn {
+      padding: 10px 20px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .download-btn:hover {
+      background: var(--secondary);
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--primary);
+      color: white;
+      font-size: 0.9rem;
+      margin-left: 0;
+      width: 100%;
+    }
+
+    .footer-box {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+      gap: 20px;
+    }
+
+    .footer-col {
+      flex: 1 1 250px;
+      margin: 15px;
+      text-align: left;
+      min-width: 200px;
+    }
+
+    .footer-col h4 {
+      margin-bottom: 15px;
+      color: var(--secondary);
+      font-size: 1.1rem;
+    }
+
+    .footer-col p, .footer-col a {
+      color: #ccc;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      text-decoration: none;
+    }
+
+    .footer-col a:hover {
+      color: white;
+    }
+
+    .footer-col i {
+      margin-right: 10px;
+    }
+
+    .footer-bottom {
+      background-color: var(--footer-bg);
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* Back to Top Button */
+    #back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: none;
+      z-index: 1000;
+    }
+
+    #back-to-top:hover {
+      background: var(--secondary);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      header, .main-content {
+        margin-left: 0;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .main-content {
+        padding: 15px;
+      }
+
+      .table-container {
+        padding: 15px;
+      }
+
+      table {
+        font-size: 0.9rem;
+      }
+
+      th, td {
+        padding: 8px;
+      }
+
+      .download-btn {
+        width: 100%;
+      }
+
+      .footer-box {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .footer-col {
+        margin: 10px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Animation -->
+  <div id="loading">
+    <div class="loader"></div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">Surat Masuk</div>
+    <div class="sidebar-nav">
+      <a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+      <a href="statistics.html"><i class="fas fa-chart-bar"></i> Statistik</a>
+      <a href="surat-masuk.html"><i class="fas fa-envelope"></i> Surat Masuk</a>
+      <a href="index.html"><i class="fas fa-sign-out-alt"></i> Kembali ke Beranda</a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-left">
+      <i class="fas fa-bars hamburger" id="hamburger"></i>
+      <div class="header-title">Surat Masuk - Desa Gringsing</div>
+    </div>
+    <div class="header-right">
+      <i class="fas fa-moon" id="theme-toggle"></i>
+      <i class="fas fa-sign-out-alt" onclick="logout()"></i>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="table-container">
+      <h2>Data Surat Masuk</h2>
+      <button class="download-btn" onclick="downloadCSV()">Unduh CSV</button>
+      <table id="suratMasukTable">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nomor Surat</th>
+            <th>Tanggal Masuk</th>
+            <th>Pengirim</th>
+            <th>Jenis Surat</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>SM/001/2025</td>
+            <td>01 Juni 2025</td>
+            <td>Kantor Camat Batang</td>
+            <td>Pengumuman</td>
+            <td>Sedang Diproses</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>SM/002/2025</td>
+            <td>05 Juni 2025</td>
+            <td>Dinas Pertanian</td>
+            <td>Laporan</td>
+            <td>Selesai</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>SM/003/2025</td>
+            <td>10 Juni 2025</td>
+            <td>Bappeda Kabupaten</td>
+            <td>Permohonan Dana</td>
+            <td>Pending</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>SM/004/2025</td>
+            <td>15 Juni 2025</td>
+            <td>Kementerian Desa</td>
+            <td>Evaluasi</td>
+            <td>Sedang Diproses</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>SM/005/2025</td>
+            <td>20 Juni 2025</td>
+            <td>Kelurahan Tetangga</td>
+            <td>Koordinasi</td>
+            <td>Selesai</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-box">
+      <div class="footer-col">
+        <h4>Profil Desa</h4>
+        <p>Desa Gringsing merupakan desa yang berlokasi di Kabupaten Batang, Jawa Tengah. Berbasis pertanian dan UMKM.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Kontak</h4>
+        <p><i class="fas fa-map-marker-alt"></i> Balai Desa Gringsing, Batang</p>
+        <p><i class="fas fa-phone"></i> (0295) 123456</p>
+        <p><i class="fas fa-envelope"></i> info@gringsing.desa.id</p>
+      </div>
+      <div class="footer-col">
+        <h4>Sosial Media</h4>
+        <a href="#"><i class="fab fa-facebook"></i> Facebook</a><br/>
+        <a href="#"><i class="fab fa-instagram"></i> Instagram</a><br/>
+        <a href="#"><i class="fab fa-youtube"></i> YouTube</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 Pemerintah Desa Gringsing. Semua Hak Dilindungi.
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" title="Kembali ke atas"><i class="fas fa-arrow-up"></i></button>
+
+  <script>
+    // Loading animation
+    window.addEventListener('load', () => {
+      document.getElementById('loading').style.display = 'none';
+    });
+
+    // Sidebar toggle
+    const hamburger = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar');
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+    });
+
+    // Dark mode toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+      document.body.dataset.theme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+      themeToggle.classList.toggle('fa-moon');
+      themeToggle.classList.toggle('fa-sun');
+    });
+
+    // Back to top button
+    const backToTop = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      backToTop.style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Logout function
+    function logout() {
+      alert('Logout berhasil');
+      window.location.href = 'index.html';
+    }
+
+    // Download CSV
+    function downloadCSV() {
+      const table = document.getElementById('suratMasukTable');
+      let csv = [];
+      const rows = table.querySelectorAll('tr');
+
+      rows.forEach(row => {
+        const cols = row.querySelectorAll('td, th');
+        const rowData = Array.from(cols).map(col => `"${col.textContent}"`);
+        csv.push(rowData.join(','));
+      });
+
+      const csvContent = 'data:text/csv;charset=utf-8,' + csv.join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', 'surat_masuk_' + new Date().toLocaleDateString() + '.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
+</body>
+</html>
