@@ -41,6 +41,7 @@
       flex-direction: column;
     }
 
+    /* Loading Animation */
     #loading {
       position: fixed;
       top: 0;
@@ -68,6 +69,7 @@
       100% { transform: rotate(360deg); }
     }
 
+    /* Sidebar */
     .sidebar {
       width: 250px;
       background: var(--primary);
@@ -82,7 +84,7 @@
     }
 
     .sidebar.active {
-      transform: translateX(0);
+      transform: translateX(-100%);
     }
 
     .sidebar-header {
@@ -102,6 +104,10 @@
       list-style: none;
     }
 
+    .sidebar-nav > ul > li {
+      position: relative;
+    }
+
     .sidebar-nav a {
       color: white;
       text-decoration: none;
@@ -117,7 +123,11 @@
       background: var(--secondary);
     }
 
-    .sidebar-nav .arrow {
+    .sidebar-nav a i {
+      margin-right: 10px;
+    }
+
+    .sidebar-nav .menu-toggle .arrow {
       transition: transform 0.3s ease;
     }
 
@@ -128,12 +138,25 @@
     .sidebar-nav ul ul {
       display: none;
       background: var(--primary);
+      position: absolute;
+      left: 100%;
+      top: 0;
+      width: 200px;
+      padding: 5px 0;
+      border-radius: 4px;
+    }
+
+    .sidebar-nav ul ul ul {
+      left: 100%;
+      top: 0;
+      width: 180px;
     }
 
     .sidebar-nav li.active > ul {
       display: block;
     }
 
+    /* Header */
     header {
       background: var(--primary);
       color: white;
@@ -148,12 +171,44 @@
       transition: margin-left 0.3s ease;
     }
 
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .header-right i {
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .header-right i:hover {
+      color: var(--secondary);
+    }
+
     .hamburger {
       font-size: 1.5rem;
       cursor: pointer;
       display: none;
+      transition: all 0.3s ease;
     }
 
+    .hamburger.active {
+      display: inline-block;
+    }
+
+    .hamburger.close {
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Main Content */
     .main-content {
       margin-left: 250px;
       padding: 20px;
@@ -182,16 +237,29 @@
       margin-bottom: 10px;
     }
 
+    .card p {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .card .stat-value {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin: 10px 0;
+    }
+
     .chart-container {
       position: relative;
       height: 200px;
       width: 100%;
     }
 
+    /* Footer */
     footer {
       background-color: var(--primary);
       color: white;
       font-size: 0.9rem;
+      margin-left: 0;
       width: 100%;
     }
 
@@ -201,6 +269,7 @@
       padding: 20px;
     }
 
+    /* Back to Top Button */
     #back-to-top {
       position: fixed;
       bottom: 20px;
@@ -221,25 +290,22 @@
       background: var(--secondary);
     }
 
-    #overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.4);
-      display: none;
-      z-index: 900;
-    }
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .sidebar-nav ul ul {
+        position: static;
+        width: 100%;
+        display: none;
+      }
 
-    #overlay.active {
-      display: block;
+      .sidebar-nav li.active > ul {
+        display: block;
+      }
     }
 
     @media (max-width: 768px) {
       .sidebar {
         transform: translateX(-100%);
-        position: fixed;
       }
 
       .sidebar.active {
@@ -258,28 +324,82 @@
         grid-template-columns: 1fr;
       }
     }
+
+    @media (max-width: 480px) {
+      .main-content {
+        padding: 15px;
+      }
+
+      .card {
+        padding: 15px;
+      }
+
+      .chart-container {
+        height: 150px;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Loading Animation -->
   <div id="loading">
     <div class="loader"></div>
   </div>
 
+  <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <div class="sidebar-header">Dashboard Desa</div>
     <div class="sidebar-nav">
       <ul>
-        <li><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
-        <!-- Tambahkan menu lainnya jika perlu -->
+        <li><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li>
+          <a href="#" class="menu-toggle"><i class="fas fa-chart-bar"></i> Statistik <i class="fas fa-angle-right arrow"></i></a>
+          <ul>
+            <li><a href="statistics.html">Data Statistik</a></li>
+            <li>
+              <a href="#" class="menu-toggle">Laporan <i class="fas fa-angle-right arrow"></i></a>
+              <ul>
+                <li><a href="#">Laporan Bulanan</a></li>
+                <li><a href="#">Laporan Tahunan</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#" class="menu-toggle"><i class="fas fa-envelope"></i> Surat <i class="fas fa-angle-right arrow"></i></a>
+          <ul>
+            <li><a href="surat-masuk.html">Surat Masuk</a></li>
+            <li>
+              <a href="#" class="menu-toggle">Surat Keluar <i class="fas fa-angle-right arrow"></i></a>
+              <ul>
+                <li><a href="#">Arsip Surat</a></li>
+                <li><a href="#">Pengaturan Surat</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#" class="menu-toggle"><i class="fas fa-cog"></i> Pengaturan <i class="fas fa-angle-right arrow"></i></a>
+          <ul>
+            <li><a href="#">Profil Desa</a></li>
+            <li>
+              <a href="#" class="menu-toggle">Keamanan <i class="fas fa-angle-right arrow"></i></a>
+              <ul>
+                <li><a href="#">Ubah Kata Sandi</a></li>
+                <li><a href="#">Log Aktivitas</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="index.html"><i class="fas fa-sign-out-alt"></i> Kembali ke Beranda</a></li>
       </ul>
     </div>
   </div>
 
-  <div id="overlay"></div>
-
+  <!-- Header -->
   <header>
     <div class="header-left">
-      <i class="hamburger fas" id="hamburger"></i>
+      <i class="fas fa-bars hamburger" id="hamburger"></i>
       <div class="header-title">Dashboard - Desa Gringsing</div>
     </div>
     <div class="header-right">
@@ -288,85 +408,229 @@
     </div>
   </header>
 
+  <!-- Main Content -->
   <div class="main-content">
     <div class="dashboard-grid">
+      <!-- Surat Masuk/Keluar (Donut Chart) -->
       <div class="card">
-        <h3>Contoh Data</h3>
+        <h3>Surat Masuk/Keluar</h3>
         <div class="chart-container">
           <canvas id="donutChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Dana Masuk/Keluar (Bar Chart) -->
+      <div class="card">
+        <h3>Dana Masuk/Keluar</h3>
+        <div class="chart-container">
+          <canvas id="barChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Jumlah Tanah (Line Chart) -->
+      <div class="card">
+        <h3>Jumlah Tanah</h3>
+        <div class="chart-container">
+          <canvas id="lineChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Penduduk Berdasarkan Status (Bar Chart) -->
+      <div class="card">
+        <h3>Penduduk Berdasarkan Status</h3>
+        <div class="chart-container">
+          <canvas id="statusChart"></canvas>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Footer -->
   <footer>
     <div class="footer-bottom">
       © 2025 Pemerintah Desa Gringsing. Semua Hak Dilindungi.
     </div>
   </footer>
 
+  <!-- Back to Top Button -->
   <button id="back-to-top" title="Kembali ke atas"><i class="fas fa-arrow-up"></i></button>
 
   <script>
+    // Loading animation
     window.addEventListener('load', () => {
       document.getElementById('loading').style.display = 'none';
     });
 
+    // Sidebar toggle
     const hamburger = document.getElementById('hamburger');
     const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    hamburger.classList.add('fa-bars'); // Set default icon
-
+    const header = document.querySelector('header');
+    const mainContent = document.querySelector('.main-content');
     hamburger.addEventListener('click', () => {
-      const isOpen = sidebar.classList.toggle('active');
-
-      // Toggle icon
-      hamburger.classList.toggle('fa-bars', !isOpen);
-      hamburger.classList.toggle('fa-times', isOpen);
-
-      // Toggle overlay
-      overlay.classList.toggle('active', isOpen);
+      const isActive = sidebar.classList.toggle('active');
+      hamburger.classList.toggle('close', isActive);
+      if (isActive) {
+        hamburger.classList.remove('fa-bars');
+        hamburger.classList.add('fa-times');
+      } else {
+        hamburger.classList.remove('fa-times');
+        hamburger.classList.add('fa-bars');
+      }
+      header.classList.toggle('shifted');
+      mainContent.classList.toggle('shifted');
     });
 
-    overlay.addEventListener('click', () => {
-      sidebar.classList.remove('active');
-      hamburger.classList.remove('fa-times');
-      hamburger.classList.add('fa-bars');
-      overlay.classList.remove('active');
-    });
-
-    document.getElementById('theme-toggle').addEventListener('click', () => {
+    // Dark mode toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
       document.body.dataset.theme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
       themeToggle.classList.toggle('fa-moon');
       themeToggle.classList.toggle('fa-sun');
     });
 
+    // Back to top button
     const backToTop = document.getElementById('back-to-top');
     window.addEventListener('scroll', () => {
       backToTop.style.display = window.scrollY > 300 ? 'block' : 'none';
     });
+
     backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
+    // Logout function
     function logout() {
       alert('Logout berhasil');
       window.location.href = 'index.html';
     }
 
-    // Example Chart
-    new Chart(document.getElementById('donutChart').getContext('2d'), {
+    // Menu toggle functionality with arrow
+    document.querySelectorAll('.menu-toggle').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        const parentLi = item.parentElement;
+        parentLi.classList.toggle('active');
+
+        // Rotate arrow icon
+        const arrow = item.querySelector('.arrow');
+        if (parentLi.classList.contains('active')) {
+          arrow.style.transform = 'rotate(90deg)';
+        } else {
+          arrow.style.transform = 'rotate(0deg)';
+        }
+
+        // Close other open submenus at the same level
+        const parentUl = parentLi.parentElement;
+        parentUl.querySelectorAll('li').forEach(siblingLi => {
+          if (siblingLi !== parentLi && siblingLi.classList.contains('active')) {
+            siblingLi.classList.remove('active');
+            const siblingArrow = siblingLi.querySelector('.arrow');
+            if (siblingArrow) siblingArrow.style.transform = 'rotate(0deg)';
+          }
+        });
+
+        // Keep parent submenu open if this is a level 2 or 3 menu
+        if (parentLi.parentElement.tagName === 'UL' && parentLi.parentElement.parentElement.tagName === 'LI') {
+          const grandParentLi = parentLi.parentElement.parentElement;
+          if (!grandParentLi.classList.contains('active')) {
+            grandParentLi.classList.add('active');
+            const grandParentArrow = grandParentLi.querySelector('.arrow');
+            if (grandParentArrow) grandParentArrow.style.transform = 'rotate(90deg)';
+          }
+        }
+      });
+    });
+
+    // Chart.js Configurations
+    const donutCtx = document.getElementById('donutChart').getContext('2d');
+    const barCtx = document.getElementById('barChart').getContext('2d');
+    const lineCtx = document.getElementById('lineChart').getContext('2d');
+    const statusCtx = document.getElementById('statusChart').getContext('2d');
+
+    // Donut Chart (Surat Masuk/Keluar)
+    new Chart(donutCtx, {
       type: 'doughnut',
       data: {
-        labels: ['Masuk', 'Keluar'],
+        labels: ['Surat Masuk', 'Surat Keluar'],
         datasets: [{
-          data: [120, 80],
-          backgroundColor: ['#27ae60', '#1abc9c']
+          data: [150, 100],
+          backgroundColor: ['#27ae60', '#1abc9c'],
+          borderWidth: 1
         }]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false
+      }
+    });
+
+    // Bar Chart (Dana Masuk/Keluar)
+    new Chart(barCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Dana Masuk (DD)', 'Dana Keluar (APBDes)'],
+        datasets: [{
+          label: 'Jumlah (Juta Rp)',
+          data: [500, 300],
+          backgroundColor: '#27ae60',
+          borderColor: '#1abc9c',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    // Line Chart (Jumlah Tanah)
+    new Chart(lineCtx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
+        datasets: [{
+          label: 'Letter C Tanah',
+          data: [50, 60, 70, 65, 80, 90],
+          borderColor: '#27ae60',
+          fill: false
+        }, {
+          label: 'Tanah Bersertifikat',
+          data: [30, 40, 50, 45, 60, 70],
+          borderColor: '#1abc9c',
+          fill: false
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    // Bar Chart (Penduduk Berdasarkan Status)
+    new Chart(statusCtx, {
+      type: 'bar',
+      data: {
+        labels: ['SD', 'SMP', 'SMA', 'Kuliah', 'Kerja', 'Pengangguran'],
+        datasets: [{
+          label: 'Jumlah Penduduk',
+          data: [200, 150, 100, 80, 300, 50],
+          backgroundColor: '#27ae60',
+          borderColor: '#1abc9c',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: { beginAtZero: true }
+        }
       }
     });
   </script>
