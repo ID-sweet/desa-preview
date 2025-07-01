@@ -1,638 +1,387 @@
 <!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard - Desa Gringsing</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    :root {
-      --primary: #2c3e50;
-      --secondary: #1abc9c;
-      --accent: #27ae60;
-      --text: #333;
-      --bg-light: #f5f7fa;
-      --card-bg: #ffffff;
-      --footer-bg: #1f2c39;
-    }
-
-    [data-theme="dark"] {
-      --primary: #34495e;
-      --text: #e0e0e0;
-      --bg-light: #1a1a1a;
-      --card-bg: #2d2d2d;
-      --footer-bg: #111111;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      transition: all 0.3s ease;
-    }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--bg-light);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Loading Animation */
-    #loading {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--bg-light);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-
-    .loader {
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid var(--accent);
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    /* Sidebar */
-    .sidebar {
-      width: 250px;
-      background: var(--primary);
-      color: white;
-      height: 100vh;
-      position: fixed;
-      top: 0;
-      left: 0;
-      padding: 20px 10px;
-      z-index: 1000;
-      transition: transform 0.3s ease;
-    }
-
-    .sidebar.active {
-      transform: translateX(-100%);
-    }
-
-    .sidebar-header {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    .sidebar-nav {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
-    .sidebar-nav > ul {
-      list-style: none;
-    }
-
-    .sidebar-nav > ul > li {
-      position: relative;
-    }
-
-    .sidebar-nav a {
-      color: white;
-      text-decoration: none;
-      font-size: 1rem;
-      padding: 10px 15px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-radius: 4px;
-    }
-
-    .sidebar-nav a:hover {
-      background: var(--secondary);
-    }
-
-    .sidebar-nav a i {
-      margin-right: 10px;
-    }
-
-    .sidebar-nav .menu-toggle .arrow {
-      transition: transform 0.3s ease;
-    }
-
-    .sidebar-nav .menu-toggle.active .arrow {
-      transform: rotate(90deg);
-    }
-
-    .sidebar-nav ul ul {
-      display: none;
-      background: var(--primary);
-      position: absolute;
-      left: 100%;
-      top: 0;
-      width: 200px;
-      padding: 5px 0;
-      border-radius: 4px;
-    }
-
-    .sidebar-nav ul ul ul {
-      left: 100%;
-      top: 0;
-      width: 180px;
-    }
-
-    .sidebar-nav li.active > ul {
-      display: block;
-    }
-
-    /* Header */
-    header {
-      background: var(--primary);
-      color: white;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 900;
-      margin-left: 250px;
-      transition: margin-left 0.3s ease;
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .header-right i {
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
-
-    .header-right i:hover {
-      color: var(--secondary);
-    }
-
-    .hamburger {
-      font-size: 1.5rem;
-      cursor: pointer;
-      display: none;
-      transition: all 0.3s ease;
-    }
-
-    .hamburger.active {
-      display: inline-block;
-    }
-
-    .hamburger.close {
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-
-    /* Main Content */
-    .main-content {
-      margin-left: 250px;
-      padding: 20px;
-      flex: 1;
-      transition: margin-left 0.3s ease;
-    }
-
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      margin-bottom: 20px;
-    }
-
-    .card {
-      background: var(--card-bg);
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-
-    .card h3 {
-      font-size: 1.2rem;
-      color: var(--accent);
-      margin-bottom: 10px;
-    }
-
-    .card p {
-      font-size: 0.9rem;
-      color: #555;
-    }
-
-    .card .stat-value {
-      font-size: 1.5rem;
-      color: var(--primary);
-      margin: 10px 0;
-    }
-
-    .chart-container {
-      position: relative;
-      height: 200px;
-      width: 100%;
-    }
-
-    /* Footer */
-    footer {
-      background-color: var(--primary);
-      color: white;
-      font-size: 0.9rem;
-      margin-left: 0;
-      width: 100%;
-    }
-
-    .footer-bottom {
-      background-color: var(--footer-bg);
-      text-align: center;
-      padding: 20px;
-    }
-
-    /* Back to Top Button */
-    #back-to-top {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      font-size: 1.2rem;
-      cursor: pointer;
-      display: none;
-      z-index: 1000;
-    }
-
-    #back-to-top:hover {
-      background: var(--secondary);
-    }
-
-    /* Responsive Design */
-    @media (max-width: 1024px) {
-      .sidebar-nav ul ul {
-        position: static;
-        width: 100%;
-        display: none;
-      }
-
-      .sidebar-nav li.active > ul {
-        display: block;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .sidebar {
-        transform: translateX(-100%);
-      }
-
-      .sidebar.active {
-        transform: translateX(0);
-      }
-
-      .hamburger {
-        display: block;
-      }
-
-      header, .main-content {
-        margin-left: 0;
-      }
-
-      .dashboard-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .main-content {
-        padding: 15px;
-      }
-
-      .card {
-        padding: 15px;
-      }
-
-      .chart-container {
-        height: 150px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <!-- Loading Animation -->
-  <div id="loading">
-    <div class="loader"></div>
-  </div>
-
-  <!-- Sidebar -->
-  <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">Dashboard Desa</div>
-    <div class="sidebar-nav">
-      <ul>
-        <li><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
-        <li>
-          <a href="#" class="menu-toggle"><i class="fas fa-chart-bar"></i> Statistik <i class="fas fa-angle-right arrow"></i></a>
-          <ul>
-            <li><a href="statistics.html">Data Statistik</a></li>
-            <li>
-              <a href="#" class="menu-toggle">Laporan <i class="fas fa-angle-right arrow"></i></a>
-              <ul>
-                <li><a href="#">Laporan Bulanan</a></li>
-                <li><a href="#">Laporan Tahunan</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="#" class="menu-toggle"><i class="fas fa-envelope"></i> Surat <i class="fas fa-angle-right arrow"></i></a>
-          <ul>
-            <li><a href="surat-masuk.html">Surat Masuk</a></li>
-            <li>
-              <a href="#" class="menu-toggle">Surat Keluar <i class="fas fa-angle-right arrow"></i></a>
-              <ul>
-                <li><a href="#">Arsip Surat</a></li>
-                <li><a href="#">Pengaturan Surat</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="#" class="menu-toggle"><i class="fas fa-cog"></i> Pengaturan <i class="fas fa-angle-right arrow"></i></a>
-          <ul>
-            <li><a href="#">Profil Desa</a></li>
-            <li>
-              <a href="#" class="menu-toggle">Keamanan <i class="fas fa-angle-right arrow"></i></a>
-              <ul>
-                <li><a href="#">Ubah Kata Sandi</a></li>
-                <li><a href="#">Log Aktivitas</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li><a href="index.html"><i class="fas fa-sign-out-alt"></i> Kembali ke Beranda</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Header -->
-  <header>
-    <div class="header-left">
-      <i class="fas fa-bars hamburger" id="hamburger"></i>
-      <div class="header-title">Dashboard - Desa Gringsing</div>
-    </div>
-    <div class="header-right">
-      <i class="fas fa-moon" id="theme-toggle"></i>
-      <i class="fas fa-sign-out-alt" onclick="logout()"></i>
-    </div>
-  </header>
-
-  <!-- Main Content -->
-  <div class="main-content">
-    <div class="dashboard-grid">
-      <!-- Surat Masuk/Keluar (Donut Chart) -->
-      <div class="card">
-        <h3>Surat Masuk/Keluar</h3>
-        <div class="chart-container">
-          <canvas id="donutChart"></canvas>
-        </div>
+<html lang="en">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>Admin - Tahfidz Management</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- site icon -->
+      <link rel="icon" href="images/fevicon.png" type="image/png" />
+      <!-- bootstrap css -->
+      <link rel="stylesheet" href="css/bootstrap.min.css" />
+      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+      <!-- site css -->
+      <link rel="stylesheet" href="style.css" />
+      <!-- responsive css -->
+      <link rel="stylesheet" href="css/responsive.css" />
+      <!-- color css -->
+      <link rel="stylesheet" href="css/color_2.css" />
+      <!-- select bootstrap -->
+      <link rel="stylesheet" href="css/bootstrap-select.css" />
+      <!-- scrollbar css -->
+      <link rel="stylesheet" href="css/perfect-scrollbar.css" />
+      <!-- CSS DataTables -->
+      <link rel="stylesheet" type="text/css" href="css/datatables.min.css">
+      <!-- custom css -->
+      <link rel="stylesheet" href="css/custom.css" />
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+   </head>
+   <body class="dashboard dashboard_2">
+      <div class="full_container">
+         <div class="inner_container">
+            <!-- Sidebar  -->
+            <nav id="sidebar">
+               <div class="sidebar_blog_1">
+                  <div class="sidebar-header">
+                     <div class="logo_section">
+                        <a href="index.html"><img class="logo_icon img-responsive" src="images/logo/logo_icon.png" alt="#" /></a>
+                     </div>
+                  </div>
+                  <div class="sidebar_user_info">
+                     <div class="icon_setting"></div>
+                     <div class="user_profle_side">
+                        <div class="user_img"><img class="img-responsive" src="images/layout_img/user_img.jpg" alt="#" /></div>
+                        <div class="user_info">
+                           <h6>Admin</h6>
+                           <p><span class="online_animation"></span> Online</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="sidebar_blog_2">
+                  <h4 style="font-size: 15px;">Tahfidz Management System</h4>
+                  <ul class="list-group components">
+                      <li class="list-group-item list-group-item-action active">
+                          <a href="admin.html">
+                             <i class="fa fa-dashboard active"></i>
+                                <span class="active">Dashboard</span>
+                          </a>
+                       </li>
+                       <li class="list-group-item list-group-item-action">
+                          <a href="admin-pengasuh.html">
+                             <i class="fa fa-dashboard"></i>
+                                <span>Pengasuh</span>
+                          </a>
+                       </li>
+                       <li class="list-group-item list-group-item-action">
+                          <a href="admin-pembina.html">
+                             <i class="fa fa-dashboard"></i>
+                                <span>Pembimbing</span>
+                          </a>
+                       </li>
+                       <li class="list-group-item list-group-item-action">
+                          <a href="admin-santri.html">
+                             <i class="fa fa-dashboard"></i>
+                                <span>Santri</span>
+                          </a>
+                       </li>
+                  </ul>
+              </div>
+            </nav>
+            <!-- end sidebar -->
+            <!-- right content -->
+            <div id="content">
+               <!-- topbar -->
+               <div class="topbar">
+                  <nav class="navbar navbar-expand-lg navbar-light">
+                     <div class="full">
+                        <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
+                        <div class="logo_section">
+                           <a href="index.html"><img class="img-responsive" src="images/logo/logo_black.png" alt="#" /></a>
+                        </div>
+                        <div class="right_topbar">
+                           <div class="icon_info">
+                              <ul class="user_profile_dd">
+                                 <li>
+                                    <a class="dropdown-toggle" data-toggle="dropdown"><img class="img-responsive rounded-circle" src="images/layout_img/user_img.jpg" alt="#" /><span class="name_user">Admin</span></a>
+                                    <div class="dropdown-menu">
+                                       <a class="dropdown-item" href="profile.html">My Profile</a>
+                                       <a class="dropdown-item" href="#"><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
+                                    </div>
+                                 </li>
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                  </nav>
+               </div>
+               <!-- end topbar -->
+               <!-- dashboard inner -->
+               <div class="midde_cont">
+                  <div class="container-fluid">
+                     <div class="row column_title">
+                        <div class="col-md-12">
+                           <div class="page_title">
+                              <h2 style="font-size: 16px;">Assalamualaikum, Admin 👋</h2>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- row -->
+                     <div class="row column1">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                           <div class="white_shd full margin_bottom_30">
+                              <div class="full graph_head">
+                                 <div class="heading1 margin_0">
+                                    <h2>Admin profile</h2>
+                                 </div>
+                              </div>
+                              <div class="full price_table padding_infor_info">
+                                 <div class="row">
+                                    <!-- user profile section --> 
+                                    <!-- profile image -->
+                                    <div class="col-lg-12">
+                                       <div class="full dis_flex center_text">
+                                          <div class="profile_img"><img width="180" class="rounded-circle" src="images/layout_img/user_img.jpg" alt="#" /></div>
+                                          <div class="profile_contant">
+                                             <div class="contact_inner">
+                                                <h3>Admin</h3>
+                                                <table>
+                                                   <tr>
+                                                      <td><strong>Nama Lengkap</strong></td>
+                                                      <td>:</td>
+                                                      <td>Adi Cahyono</td>
+                                                   </tr>
+                                                   <tr>
+                                                      <td><strong>Jenis Kelamin</strong></td>
+                                                      <td>:</td>
+                                                      <td>Laki-laki</td>
+                                                   </tr>
+                                                   <tr>
+                                                      <td><strong>Pendidikan Terakhir dan jurusan</strong></td>
+                                                      <td>:</td>
+                                                      <td>S1 Pendidikan Matematika</td>
+                                                   </tr>
+                                                   <tr>
+                                                      <td><strong>Instansi</strong></td>
+                                                      <td>:</td>
+                                                      <td>Instansi</td>
+                                                   </tr>
+                                                   <tr>
+                                                      <td><strong>Alamat</strong></td>
+                                                      <td>:</td>
+                                                      <td>Alamat</td>
+                                                   </tr>
+                                                   <tr>
+                                                      <td><strong>Kode Nama</strong></td>
+                                                      <td>:</td>
+                                                      <td>AC</td>
+                                                   </tr>
+                                                   <tr>
+                                                      <td><strong>Password</strong></td>
+                                                      <td>:</td>
+                                                      <td>*********</td>
+                                                   </tr>
+                                                </table>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- row untuk dashboard data -->
+                     <div class="row column1">
+                        <div class="col-md-6">
+                           <div class="white_shd full margin_bottom_30">
+                              <div class="full graph_head">
+                                 <div class="heading1 margin_0">
+                                    <h2>Surat Masuk/Keluar</h2>
+                                 </div>
+                              </div>
+                              <div class="full progress_bar_inner">
+                                 <div class="chart-container">
+                                    <canvas id="donutChart"></canvas>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="white_shd full margin_bottom_30">
+                              <div class="full graph_head">
+                                 <div class="heading1 margin_0">
+                                    <h2>Dana Masuk/Keluar</h2>
+                                 </div>
+                              </div>
+                              <div class="full progress_bar_inner">
+                                 <div class="chart-container">
+                                    <canvas id="barChart"></canvas>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="white_shd full margin_bottom_30">
+                              <div class="full graph_head">
+                                 <div class="heading1 margin_0">
+                                    <h2>Jumlah Tanah</h2>
+                                 </div>
+                              </div>
+                              <div class="full progress_bar_inner">
+                                 <div class="chart-container">
+                                    <canvas id="lineChart"></canvas>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="white_shd full margin_bottom_30">
+                              <div class="full graph_head">
+                                 <div class="heading1 margin_0">
+                                    <h2>Penduduk Berdasarkan Status</h2>
+                                 </div>
+                              </div>
+                              <div class="full progress_bar_inner">
+                                 <div class="chart-container">
+                                    <canvas id="statusChart"></canvas>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- end row -->
+                  </div>
+                  <!-- end dashboard inner -->
+               </div>
+               <!-- end dashboard inner -->
+            </div>
+         </div>
       </div>
 
-      <!-- Dana Masuk/Keluar (Bar Chart) -->
-      <div class="card">
-        <h3>Dana Masuk/Keluar</h3>
-        <div class="chart-container">
-          <canvas id="barChart"></canvas>
-        </div>
+      <!-- footer -->
+      <div class="footer">
+         <div class="container">
+            <p>© <?= date("Y"); ?> Copyright <strong><span>... .com</span></strong> | Created with ♥ by Idsweet Studio | All Rights Reserved.</p>
+         </div>
       </div>
+      <!-- jQuery -->
+      <script src="js/jquery.min.js"></script>
+      <script src="js/popper.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <!-- wow animation -->
+      <script src="js/animate.js"></script>
+      <!-- select country -->
+      <script src="js/bootstrap-select.js"></script>
+      <!-- owl carousel -->
+      <script src="js/owl.carousel.js"></script> 
+      <!-- chart js -->
+      <script src="js/Chart.min.js"></script>
+      <script src="js/Chart.bundle.min.js"></script>
+      <script src="js/utils.js"></script>
+      <script src="js/analyser.js"></script>
+      <!-- nice scrollbar -->
+      <script src="js/perfect-scrollbar.min.js"></script>
+      <script>
+         var ps = new PerfectScrollbar('#sidebar');
+      </script>
+      <!-- custom js -->
+      <script src="js/custom.js"></script>
+      <script src="js/chart_custom_style2.js"></script>
+      <script>
+         // Chart.js Configurations
+         const donutCtx = document.getElementById('donutChart').getContext('2d');
+         const barCtx = document.getElementById('barChart').getContext('2d');
+         const lineCtx = document.getElementById('lineChart').getContext('2d');
+         const statusCtx = document.getElementById('statusChart').getContext('2d');
 
-      <!-- Jumlah Tanah (Line Chart) -->
-      <div class="card">
-        <h3>Jumlah Tanah</h3>
-        <div class="chart-container">
-          <canvas id="lineChart"></canvas>
-        </div>
-      </div>
+         // Donut Chart (Surat Masuk/Keluar)
+         new Chart(donutCtx, {
+            type: 'doughnut',
+            data: {
+               labels: ['Surat Masuk', 'Surat Keluar'],
+               datasets: [{
+                  data: [150, 100],
+                  backgroundColor: ['#27ae60', '#1abc9c'],
+                  borderWidth: 1
+               }]
+            },
+            options: {
+               responsive: true,
+               maintainAspectRatio: false
+            }
+         });
 
-      <!-- Penduduk Berdasarkan Status (Bar Chart) -->
-      <div class="card">
-        <h3>Penduduk Berdasarkan Status</h3>
-        <div class="chart-container">
-          <canvas id="statusChart"></canvas>
-        </div>
-      </div>
-    </div>
-  </div>
+         // Bar Chart (Dana Masuk/Keluar)
+         new Chart(barCtx, {
+            type: 'bar',
+            data: {
+               labels: ['Dana Masuk (DD)', 'Dana Keluar (APBDes)'],
+               datasets: [{
+                  label: 'Jumlah (Juta Rp)',
+                  data: [500, 300],
+                  backgroundColor: '#27ae60',
+                  borderColor: '#1abc9c',
+                  borderWidth: 1
+               }]
+            },
+            options: {
+               responsive: true,
+               maintainAspectRatio: false,
+               scales: {
+                  y: { beginAtZero: true }
+               }
+            }
+         });
 
-  <!-- Footer -->
-  <footer>
-    <div class="footer-bottom">
-      © 2025 Pemerintah Desa Gringsing. Semua Hak Dilindungi.
-    </div>
-  </footer>
+         // Line Chart (Jumlah Tanah)
+         new Chart(lineCtx, {
+            type: 'line',
+            data: {
+               labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
+               datasets: [{
+                  label: 'Letter C Tanah',
+                  data: [50, 60, 70, 65, 80, 90],
+                  borderColor: '#27ae60',
+                  fill: false
+               }, {
+                  label: 'Tanah Bersertifikat',
+                  data: [30, 40, 50, 45, 60, 70],
+                  borderColor: '#1abc9c',
+                  fill: false
+               }]
+            },
+            options: {
+               responsive: true,
+               maintainAspectRatio: false,
+               scales: {
+                  y: { beginAtZero: true }
+               }
+            }
+         });
 
-  <!-- Back to Top Button -->
-  <button id="back-to-top" title="Kembali ke atas"><i class="fas fa-arrow-up"></i></button>
-
-  <script>
-    // Loading animation
-    window.addEventListener('load', () => {
-      document.getElementById('loading').style.display = 'none';
-    });
-
-    // Sidebar toggle
-    const hamburger = document.getElementById('hamburger');
-    const sidebar = document.getElementById('sidebar');
-    const header = document.querySelector('header');
-    const mainContent = document.querySelector('.main-content');
-    hamburger.addEventListener('click', () => {
-      const isActive = sidebar.classList.toggle('active');
-      hamburger.classList.toggle('close', isActive);
-      if (isActive) {
-        hamburger.classList.remove('fa-bars');
-        hamburger.classList.add('fa-times');
-      } else {
-        hamburger.classList.remove('fa-times');
-        hamburger.classList.add('fa-bars');
-      }
-      header.classList.toggle('shifted');
-      mainContent.classList.toggle('shifted');
-    });
-
-    // Dark mode toggle
-    const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.addEventListener('click', () => {
-      document.body.dataset.theme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
-      themeToggle.classList.toggle('fa-moon');
-      themeToggle.classList.toggle('fa-sun');
-    });
-
-    // Back to top button
-    const backToTop = document.getElementById('back-to-top');
-    window.addEventListener('scroll', () => {
-      backToTop.style.display = window.scrollY > 300 ? 'block' : 'none';
-    });
-
-    backToTop.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    // Logout function
-    function logout() {
-      alert('Logout berhasil');
-      window.location.href = 'index.html';
-    }
-
-    // Menu toggle functionality with arrow
-    document.querySelectorAll('.menu-toggle').forEach(item => {
-      item.addEventListener('click', (e) => {
-        e.preventDefault();
-        const parentLi = item.parentElement;
-        parentLi.classList.toggle('active');
-
-        // Rotate arrow icon
-        const arrow = item.querySelector('.arrow');
-        if (parentLi.classList.contains('active')) {
-          arrow.style.transform = 'rotate(90deg)';
-        } else {
-          arrow.style.transform = 'rotate(0deg)';
-        }
-
-        // Close other open submenus at the same level
-        const parentUl = parentLi.parentElement;
-        parentUl.querySelectorAll('li').forEach(siblingLi => {
-          if (siblingLi !== parentLi && siblingLi.classList.contains('active')) {
-            siblingLi.classList.remove('active');
-            const siblingArrow = siblingLi.querySelector('.arrow');
-            if (siblingArrow) siblingArrow.style.transform = 'rotate(0deg)';
-          }
-        });
-
-        // Keep parent submenu open if this is a level 2 or 3 menu
-        if (parentLi.parentElement.tagName === 'UL' && parentLi.parentElement.parentElement.tagName === 'LI') {
-          const grandParentLi = parentLi.parentElement.parentElement;
-          if (!grandParentLi.classList.contains('active')) {
-            grandParentLi.classList.add('active');
-            const grandParentArrow = grandParentLi.querySelector('.arrow');
-            if (grandParentArrow) grandParentArrow.style.transform = 'rotate(90deg)';
-          }
-        }
-      });
-    });
-
-    // Chart.js Configurations
-    const donutCtx = document.getElementById('donutChart').getContext('2d');
-    const barCtx = document.getElementById('barChart').getContext('2d');
-    const lineCtx = document.getElementById('lineChart').getContext('2d');
-    const statusCtx = document.getElementById('statusChart').getContext('2d');
-
-    // Donut Chart (Surat Masuk/Keluar)
-    new Chart(donutCtx, {
-      type: 'doughnut',
-      data: {
-        labels: ['Surat Masuk', 'Surat Keluar'],
-        datasets: [{
-          data: [150, 100],
-          backgroundColor: ['#27ae60', '#1abc9c'],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false
-      }
-    });
-
-    // Bar Chart (Dana Masuk/Keluar)
-    new Chart(barCtx, {
-      type: 'bar',
-      data: {
-        labels: ['Dana Masuk (DD)', 'Dana Keluar (APBDes)'],
-        datasets: [{
-          label: 'Jumlah (Juta Rp)',
-          data: [500, 300],
-          backgroundColor: '#27ae60',
-          borderColor: '#1abc9c',
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          y: { beginAtZero: true }
-        }
-      }
-    });
-
-    // Line Chart (Jumlah Tanah)
-    new Chart(lineCtx, {
-      type: 'line',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
-        datasets: [{
-          label: 'Letter C Tanah',
-          data: [50, 60, 70, 65, 80, 90],
-          borderColor: '#27ae60',
-          fill: false
-        }, {
-          label: 'Tanah Bersertifikat',
-          data: [30, 40, 50, 45, 60, 70],
-          borderColor: '#1abc9c',
-          fill: false
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          y: { beginAtZero: true }
-        }
-      }
-    });
-
-    // Bar Chart (Penduduk Berdasarkan Status)
-    new Chart(statusCtx, {
-      type: 'bar',
-      data: {
-        labels: ['SD', 'SMP', 'SMA', 'Kuliah', 'Kerja', 'Pengangguran'],
-        datasets: [{
-          label: 'Jumlah Penduduk',
-          data: [200, 150, 100, 80, 300, 50],
-          backgroundColor: '#27ae60',
-          borderColor: '#1abc9c',
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          y: { beginAtZero: true }
-        }
-      }
-    });
-  </script>
-</body>
+         // Bar Chart (Penduduk Berdasarkan Status)
+         new Chart(statusCtx, {
+            type: 'bar',
+            data: {
+               labels: ['SD', 'SMP', 'SMA', 'Kuliah', 'Kerja', 'Pengangguran'],
+               datasets: [{
+                  label: 'Jumlah Penduduk',
+                  data: [200, 150, 100, 80, 300, 50],
+                  backgroundColor: '#27ae60',
+                  borderColor: '#1abc9c',
+                  borderWidth: 1
+               }]
+            },
+            options: {
+               responsive: true,
+               maintainAspectRatio: false,
+               scales: {
+                  y: { beginAtZero: true }
+               }
+            }
+         });
+      </script>
+   </body>
 </html>
