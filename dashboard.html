@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dashboard - Desa Gringsing</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     :root {
       --primary: #2c3e50;
@@ -210,7 +211,7 @@
 
     .dashboard-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
       margin-bottom: 20px;
     }
@@ -240,116 +241,10 @@
       margin: 10px 0;
     }
 
-    .profile-card {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      text-align: left;
-    }
-
-    .profile-card img {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .activity-card {
-      background: var(--card-bg);
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      margin-bottom: 15px;
-    }
-
-    .activity-card h3 {
-      font-size: 1.1rem;
-      color: var(--accent);
-      margin-bottom: 5px;
-    }
-
-    .activity-card p {
-      font-size: 0.9rem;
-      color: #555;
-    }
-
-    /* Data Table */
-    .table-container {
-      margin-top: 20px;
-    }
-
-    table {
+    .chart-container {
+      position: relative;
+      height: 200px;
       width: 100%;
-      border-collapse: collapse;
-      background: var(--card-bg);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    th, td {
-      padding: 12px;
-      text-align: left;
-      border-bottom: 1px solid #ddd;
-    }
-
-    th {
-      background: var(--primary);
-      color: white;
-    }
-
-    tr:hover {
-      background: #f5f5f5;
-    }
-
-    .download-btn {
-      padding: 10px 20px;
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-
-    .download-btn:hover {
-      background: var(--secondary);
-    }
-
-    /* Input Form */
-    .input-form {
-      margin-top: 20px;
-      background: var(--card-bg);
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    .input-form label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
-
-    .input-form input {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    .input-form button {
-      padding: 10px 20px;
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .input-form button:hover {
-      background: var(--secondary);
     }
 
     /* Footer */
@@ -449,11 +344,6 @@
       .dashboard-grid {
         grid-template-columns: 1fr;
       }
-
-      .profile-card {
-        flex-direction: column;
-        text-align: center;
-      }
     }
 
     @media (max-width: 600px) {
@@ -465,16 +355,8 @@
         padding: 15px;
       }
 
-      table {
-        font-size: 0.9rem;
-      }
-
-      th, td {
-        padding: 8px;
-      }
-
-      .input-form {
-        padding: 15px;
+      .chart-container {
+        height: 150px;
       }
 
       .footer-box {
@@ -500,10 +382,7 @@
     <div class="sidebar-header">Dashboard Desa</div>
     <div class="sidebar-nav">
       <a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
-      <a href="#"><i class="fas fa-user"></i> Profil</a>
-      <a href="#"><i class="fas fa-chart-bar"></i> Statistik</a>
-      <a href="#"><i class="fas fa-map"></i> Peta</a>
-      <a href="#"><i class="fas fa-exclamation-circle"></i> Aduan</a>
+      <a href="statistics.html"><i class="fas fa-chart-bar"></i> Statistik</a>
       <a href="index.html"><i class="fas fa-sign-out-alt"></i> Kembali ke Beranda</a>
     </div>
   </div>
@@ -515,134 +394,45 @@
       <div class="header-title">Dashboard - Desa Gringsing</div>
     </div>
     <div class="header-right">
-      <i class="fas fa-search" id="search-btn"></i>
       <i class="fas fa-moon" id="theme-toggle"></i>
       <i class="fas fa-sign-out-alt" onclick="logout()"></i>
     </div>
   </header>
 
-  <!-- Search Modal -->
-  <div class="modal" id="search-modal">
-    <div class="modal-content">
-      <input type="text" id="search-input" placeholder="Cari informasi desa...">
-      <button onclick="search()">Cari</button>
-    </div>
-  </div>
-
   <!-- Main Content -->
   <div class="main-content">
     <div class="dashboard-grid">
-      <!-- Statistics -->
+      <!-- Surat Masuk/Keluar (Donut Chart) -->
       <div class="card">
-        <h3>Statistik Desa</h3>
-        <div class="stat-value">2,500</div>
-        <p>Total Penduduk</p>
+        <h3>Surat Masuk/Keluar</h3>
+        <div class="chart-container">
+          <canvas id="donutChart"></canvas>
+        </div>
       </div>
+
+      <!-- Dana Masuk/Keluar (Bar Chart) -->
       <div class="card">
-        <h3>Statistik Desa</h3>
-        <div class="stat-value">1,200</div>
-        <p>Laki-laki</p>
+        <h3>Dana Masuk/Keluar</h3>
+        <div class="chart-container">
+          <canvas id="barChart"></canvas>
+        </div>
       </div>
+
+      <!-- Jumlah Tanah (Line Chart) -->
       <div class="card">
-        <h3>Statistik Desa</h3>
-        <div class="stat-value">1,300</div>
-        <p>Perempuan</p>
+        <h3>Jumlah Tanah</h3>
+        <div class="chart-container">
+          <canvas id="lineChart"></canvas>
+        </div>
       </div>
+
+      <!-- Penduduk Berdasarkan Status (Bar Chart) -->
       <div class="card">
-        <h3>Statistik Desa</h3>
-        <div class="stat-value">600</div>
-        <p>Kepala Keluarga</p>
+        <h3>Penduduk Berdasarkan Status</h3>
+        <div class="chart-container">
+          <canvas id="statusChart"></canvas>
+        </div>
       </div>
-    </div>
-
-    <!-- Profile -->
-    <div class="card profile-card">
-      <h3>Profil Admin</h3>
-      <img src="https://source.unsplash.com/80x80/?profile" alt="Admin Profile">
-      <div>
-        <p><strong>Nama:</strong> Admin Desa Gringsing</p>
-        <p><strong>Email:</strong> admin@gringsing.desa.id</p>
-        <p><strong>Role:</strong> Administrator</p>
-        <p><strong>Terakhir Login:</strong> 29 Juni 2025, 00:13 WIB</p>
-      </div>
-    </div>
-
-    <!-- Recent Activities -->
-    <div class="card">
-      <h3>Aktivitas Terbaru</h3>
-      <div class="activity-card">
-        <h3>Pengumuman Bansos</h3>
-        <p>Pengumuman bantuan sosial tahap II dipublikasikan pada 28 Juni 2025.</p>
-      </div>
-      <div class="activity-card">
-        <h3>Pembaruan Data Penduduk</h3>
-        <p>Data penduduk diperbarui dengan tambahan 10 KK pada 27 Juni 2025.</p>
-      </div>
-      <div class="activity-card">
-        <h3>Aduan Masyarakat</h3>
-        <p>Aduan tentang infrastruktur jalan diterima pada 26 Juni 2025.</p>
-      </div>
-    </div>
-
-    <!-- Data Table -->
-    <div class="table-container">
-      <h3>Data Penduduk</h3>
-      <button class="download-btn" onclick="downloadCSV()">Unduh CSV</button>
-      <table id="pendudukTable">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Nama</th>
-            <th>NIK</th>
-            <th>Jenis Kelamin</th>
-            <th>Alamat</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Andi Santoso</td>
-            <td>1234567890123456</td>
-            <td>Laki-laki</td>
-            <td>Jl. Merpati No. 10</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Siti Aminah</td>
-            <td>1234567890123457</td>
-            <td>Perempuan</td>
-            <td>Jl. Anggrek No. 5</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Budi Raharjo</td>
-            <td>1234567890123458</td>
-            <td>Laki-laki</td>
-            <td>Jl. Mawar No. 8</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Rina Sari</td>
-            <td>1234567890123459</td>
-            <td>Perempuan</td>
-            <td>Jl. Kamboja No. 3</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Input Form -->
-    <div class="input-form">
-      <h3>Input Data Penduduk</h3>
-      <label for="nama">Nama:</label>
-      <input type="text" id="nama" placeholder="Masukkan nama">
-      <label for="nik">NIK:</label>
-      <input type="text" id="nik" placeholder="Masukkan NIK">
-      <label for="jenisKelamin">Jenis Kelamin:</label>
-      <input type="text" id="jenisKelamin" placeholder="Laki-laki/Perempuan">
-      <label for="alamat">Alamat:</label>
-      <input type="text" id="alamat" placeholder="Masukkan alamat">
-      <button onclick="addPenduduk()">Tambah Data</button>
     </div>
   </div>
 
@@ -687,36 +477,6 @@
       sidebar.classList.toggle('active');
     });
 
-    // Search modal
-    const searchBtn = document.getElementById('search-btn');
-    const searchModal = document.getElementById('search-modal');
-    searchBtn.addEventListener('click', () => {
-      searchModal.style.display = 'flex';
-    });
-
-    searchModal.addEventListener('click', (e) => {
-      if (e.target === searchModal) {
-        searchModal.style.display = 'none';
-      }
-    });
-
-    function search() {
-      const query = document.getElementById('search-input').value;
-      if (query.trim()) {
-        alert('Mencari: ' + query);
-        searchModal.style.display = 'none';
-        document.getElementById('search-input').value = '';
-      } else {
-        alert('Harap masukkan kata kunci pencarian!');
-      }
-    }
-
-    // Logout function (placeholder)
-    function logout() {
-      alert('Logout berhasil');
-      window.location.href = 'index.html';
-    }
-
     // Dark mode toggle
     const themeToggle = document.getElementById('theme-toggle');
     themeToggle.addEventListener('click', () => {
@@ -735,55 +495,104 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // Download CSV
-    function downloadCSV() {
-      const table = document.getElementById('pendudukTable');
-      let csv = [];
-      const rows = table.querySelectorAll('tr');
-
-      rows.forEach(row => {
-        const cols = row.querySelectorAll('td, th');
-        const rowData = Array.from(cols).map(col => `"${col.textContent}"`);
-        csv.push(rowData.join(','));
-      });
-
-      const csvContent = 'data:text/csv;charset=utf-8,' + csv.join('\n');
-      const encodedUri = encodeURI(csvContent);
-      const link = document.createElement('a');
-      link.setAttribute('href', encodedUri);
-      link.setAttribute('download', 'data_penduduk.csv');
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+    // Logout function
+    function logout() {
+      alert('Logout berhasil');
+      window.location.href = 'index.html';
     }
 
-    // Add Penduduk
-    function addPenduduk() {
-      const nama = document.getElementById('nama').value;
-      const nik = document.getElementById('nik').value;
-      const jenisKelamin = document.getElementById('jenisKelamin').value;
-      const alamat = document.getElementById('alamat').value;
-      const tableBody = document.querySelector('#pendudukTable tbody');
-      const rows = tableBody.querySelectorAll('tr');
-      const newRow = tableBody.insertRow();
+    // Chart.js Configurations
+    const donutCtx = document.getElementById('donutChart').getContext('2d');
+    const barCtx = document.getElementById('barChart').getContext('2d');
+    const lineCtx = document.getElementById('lineChart').getContext('2d');
+    const statusCtx = document.getElementById('statusChart').getContext('2d');
 
-      if (nama && nik && jenisKelamin && alamat) {
-        newRow.innerHTML = `
-          <td>${rows.length + 1}</td>
-          <td>${nama}</td>
-          <td>${nik}</td>
-          <td>${jenisKelamin}</td>
-          <td>${alamat}</td>
-        `;
-        alert('Data penduduk berhasil ditambahkan!');
-        document.getElementById('nama').value = '';
-        document.getElementById('nik').value = '';
-        document.getElementById('jenisKelamin').value = '';
-        document.getElementById('alamat').value = '';
-      } else {
-        alert('Harap isi semua kolom!');
+    // Donut Chart (Surat Masuk/Keluar)
+    new Chart(donutCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Surat Masuk', 'Surat Keluar'],
+        datasets: [{
+          data: [150, 100],
+          backgroundColor: ['#27ae60', '#1abc9c'],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false
       }
-    }
+    });
+
+    // Bar Chart (Dana Masuk/Keluar)
+    new Chart(barCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Dana Masuk (DD)', 'Dana Keluar (APBDes)'],
+        datasets: [{
+          label: 'Jumlah (Juta Rp)',
+          data: [500, 300],
+          backgroundColor: '#27ae60',
+          borderColor: '#1abc9c',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    // Line Chart (Jumlah Tanah)
+    new Chart(lineCtx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
+        datasets: [{
+          label: 'Letter C Tanah',
+          data: [50, 60, 70, 65, 80, 90],
+          borderColor: '#27ae60',
+          fill: false
+        }, {
+          label: 'Tanah Bersertifikat',
+          data: [30, 40, 50, 45, 60, 70],
+          borderColor: '#1abc9c',
+          fill: false
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    // Bar Chart (Penduduk Berdasarkan Status)
+    new Chart(statusCtx, {
+      type: 'bar',
+      data: {
+        labels: ['SD', 'SMP', 'SMA', 'Kuliah', 'Kerja', 'Pengangguran'],
+        datasets: [{
+          label: 'Jumlah Penduduk',
+          data: [200, 150, 100, 80, 300, 50],
+          backgroundColor: '#27ae60',
+          borderColor: '#1abc9c',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
   </script>
 </body>
 </html>
