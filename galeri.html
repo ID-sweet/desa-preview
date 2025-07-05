@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Galeri Desa Gringsing - Website Desa</title>
+  <meta name="description" content="Galeri foto kegiatan dan keindahan Desa Gringsing">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="custom.css"/>
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <style>
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      z-index: 1002;
+      justify-content: center;
+      align-items: center;
+    }
+    .lightbox-content {
+      position: relative;
+      max-width: 90%;
+      max-height: 90%;
+    }
+    .lightbox img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 10px;
+    }
+    .lightbox-prev { left: 20px; }
+    .lightbox-next { right: 20px; }
+    .gallery-stats {
+      text-align: center;
+      margin-bottom: 30px;
+      color: var(--text-light);
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Animation -->
+  <div id="loading">
+    <div class="loader">
+      <div class="loader-text">Desa Gringsing</div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <img src="images/logo.png" alt="Logo Desa" class="logo-img">
+      </div>
+      <div class="nav-left">
+        <!-- kosong atau isi jika perlu -->
+      </div>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html" class="nav-link">Beranda</a>
+        <a href="profil-desa.html" class="nav-link">Profil</a>
+        <a href="layanan.html" class="nav-link">Layanan</a>
+        <a href="galeri.html" class="nav-link">Galeri</a>
+        <a href="berita.html" class="nav-link">Berita</a>
+        <a href="statistik.html" class="nav-link">Statistik</a>
+        <a href="kontak.html" class="nav-link">Kontak</a>
+        <div class="nav-icons">
+          <button class="nav-icon" id="search-btn-mobile" title="Cari">
+            <i class="fas fa-search"></i>
+          </button>
+          <button class="nav-icon" id="theme-toggle-mobile" title="Ganti Tema">
+            <i class="fas fa-moon"></i>
+          </button>
+          <a href="login.html" class="nav-icon" title="Login Admin">
+            <i class="fas fa-user-shield"></i>
+          </a>
+        </div>
+      </div>
+      <div class="nav-right">
+        <div class="nav-icons">
+          <button class="nav-icon" id="search-btn" title="Cari">
+            <i class="fas fa-search"></i>
+          </button>
+          <button class="nav-icon" id="theme-toggle" title="Ganti Tema">
+            <i class="fas fa-moon"></i>
+          </button>
+          <a href="login.html" class="nav-icon" title="Login Admin">
+            <i class="fas fa-user-shield"></i>
+          </a>
+        </div>
+        <button class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Search Modal -->
+  <div class="modal" id="search-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Cari Informasi Desa</h3>
+        <button class="modal-close" id="close-search">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="search-container">
+        <input type="text" id="search-input" placeholder="Ketik kata kunci pencarian...">
+        <button onclick="search()" class="search-btn">
+          <i class="fas fa-search"></i> Cari
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero" style="height: 300px; background: var(--gradient-secondary);">
+    <div class="container">
+      <div class="hero-content" style="text-align: center; color: white; padding-top: 100px;">
+        <h1>Galeri Desa</h1>
+        <p>Dokumentasi kegiatan dan keindahan Desa Gringsing</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galeri -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Galeri Foto</h2>
+        <p>Kumpulan foto kegiatan, keindahan alam, dan perkembangan Desa Gringsing</p>
+      </div>
+      
+      <div class="gallery-stats">
+        <p>Total: <span id="total-photos">18</span> foto | Menampilkan: <span id="showing-photos">18</span> foto</p>
+      </div>
+      
+      <div class="gallery-filters">
+        <button class="filter-btn active" data-filter="all">Semua</button>
+        <button class="filter-btn" data-filter="kegiatan">Kegiatan</button>
+        <button class="filter-btn" data-filter="alam">Alam</button>
+        <button class="filter-btn" data-filter="budaya">Budaya</button>
+        <button class="filter-btn" data-filter="infrastruktur">Infrastruktur</button>
+        <button class="filter-btn" data-filter="pertanian">Pertanian</button>
+      </div>
+      
+      <div class="gallery-container">
+        <div class="gallery-item" data-category="alam">
+          <img src="images/galery/1.jpg" alt="Pemandangan Sawah Desa Gringsing" onclick="openLightbox(this)">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">
+              <h4>Pemandangan Sawah Desa Gringsing</h4>
+              <p>Keindahan alam pedesaan yang asri</p>
+              <small>Foto: Tim Dokumentasi Desa</small>
+            </div>
+          </div>
+        </div>
+        
+        <div class="gallery-item" data-category="budaya">
+          <img src="images/galery/2.jpg" alt="Festival Budaya Tahunan" onclick="openLightbox(this)">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">
+              <h4>Festival Budaya Tahunan</h4>
+              <p>Melestarikan budaya dan tradisi</p>
+              <small>Foto: Tim Dokumentasi Desa</small>
+            </div>
+          </div>
+        </div>
+        
+        <div class="gallery-item" data-category="kegiatan">
+          <img src="images/galery/3.jpg" alt="Pasar Minggu Desa" onclick="openLightbox(this)">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">
+              <h4>Pasar Minggu Desa</h4>
+              <p>Kegiatan ekonomi warga</p>
+              <small>Foto: Tim Dokumentasi Desa</small>
+            </div>
+          </div>
+        </div>
+        
+        <div class="gallery-item" data-category="pertanian">
+          <img src="images/galery/4.jpg" alt="Kegiatan Pertanian Lokal" onclick="openLightbox(this)">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">
+              <h4>Kegiatan Pertanian Lokal</h4>
+              <p>Mata pencaharian utama warga</p>
+              <small>Foto: Tim Dokumentasi Desa</small>
+            </div>
+          </div>
+        </div>
+        
+        <div class="gallery-item" data-category="budaya">
+          <img src="images/galery/5.jpg" alt="Pameran Kerajinan Tangan" onclick="openLightbox(this)">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">
+              <h4>Pameran Kerajinan Tangan</h4>
+              <p>Kreativitas warga desa</p>
+              <small>Foto: Tim Dokumentasi Desa</small>
+            </div>
+          </div>
+        </div>
+        
+        <div class="gallery-item" data-category="alam">
+          <img src="images/galery/6.jpg" alt="Keindahan Sungai Desa" onclick="openLightbox(this)">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">
+              <h4>Keindahan Sungai Desa</h4>
+              <p>Sumber kehidupan warga</p>
+              <small>Foto: Tim Dokumentasi Desa</small>
+            </div>
+          </div>
+        </div>
+        
+        <div class="gallery-item" data-category="infrastruktur">
+          <img src="images/galery/7.jpg" alt="Balai Desa" onclick="openLightbox(this)">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">
+              <h4>Balai Desa</h4>
+              <p>Pusat pemerintahan desa</p>
+              <small>Foto: Tim Dokumentasi Desa</small>
+            </div>
+          </div>
+        </div>
+        
+        <div class="gallery-item" data-category="kegiatan">
+          <img src="images/galery/8.jpg" alt="Musyawarah Desa" onclick="openLightbox(this)">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">
+              <h4>Musyawarah Desa</h4>
+              <p>Forum diskusi warga</p>
+              <small>Foto: Tim Dokumentasi Desa</small>
+            </div>
+          </div>
+        </div>
+        
+        <div class="gallery-item" data-category="pertanian">
+          <img src="images/galery/9.jpg" alt="Panen Padi" onclick="openLightbox(this)">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">
+              <h4>Panen Padi</h4>
+              <p>Hasil pertanian warga</p>
+              <small>Foto: Tim Dokumentasi Desa</small>
+            </div>
+          </div>
+        </div>
+        
+        <div class="gallery-item" data-category="budaya">
+          <img src="images/galery/10.jpg" alt="Tari Tradisional" onclick="openLightbox(this)">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">
+              <h4>Tari Tradisional</h4>
+              <p>Pelestarian budaya lokal</p>
+              <small>Foto: Tim Dokumentasi Desa</small>
+            </div>
+          </div>
+        </div>
+        
+        <div class="gallery-item" data-category="infrastruktur">
+          <img src="images/galery/11.jpg" alt="Jalan Desa" onclick="openLightbox(this)">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">
+              <h4>Jalan Desa</h4>
+              <p>Infrastruktur transportasi</p>
+              <small>Foto: Tim Dokumentasi Desa</small>
+            </div>
+          </div>
+        </div>
+        
+        <div class="gallery-item" data-category="kegiatan">
+          <img src="images/galery/12.jpg" alt="Posyandu" onclick="openLightbox(this)">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">
+              <h4>Kegiatan Posyandu</h4>
+              <p>Pelayanan kesehatan</p>
+              <small>Foto: Tim Dokumentasi Desa</small>
+            </div>
+          </div>
+        </div>
+        
+        <div class="gallery-item" data-category="alam">
+          <img src="images/galery/13.jpg" alt="Pemandangan Gunung" onclick="openLightbox(this)">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">
+              <h4>Pemandangan Gunung</h4>
+              <p>Keindahan alam sekitar</p>
+              <small>Foto: Tim Dokumentasi Desa</small>
+            </div>
+          </div>
+        </div>
+        
+        <div class="gallery-item" data-category="pertanian">
+          <img src="images/galery/14.jpg" alt="Kebun Sayur" onclick="openLightbox(this)">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">
+              <h4>Kebun Sayur</h4>
+              <p>Pertanian organik</p>
+              <small>Foto: Tim Dokumentasi Desa</small>
+            </div>
+          </div>
+        </div>
+        
+        <div class="gallery-item" data-category="budaya">
+          <img src="images/galery/15.jpg" alt="Wayang Kulit" onclick="openLightbox(this)">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">
+              <h4>Pertunjukan Wayang</h4>
+              <p>Seni tradisional</p>
+              <small>Foto: Tim Dokumentasi Desa</small>
+            </div>
+          </div>
+        </div>
+        
+        <div class="gallery-item" data-category="infrastruktur">
+          <img src="images/galery/16.jpg" alt="Masjid Desa" onclick="openLightbox(this)">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">
+              <h4>Masjid Desa</h4>
+              <p>Tempat ibadah warga</p>
+              <small>Foto: Tim Dokumentasi Desa</small>
+            </div>
+          </div>
+        </div>
+        
+        <div class="gallery-item" data-category="kegiatan">
+          <img src="images/galery/17.jpg" alt="Pelatihan UMKM" onclick="openLightbox(this)">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">
+              <h4>Pelatihan UMKM</h4>
+              <p>Pemberdayaan ekonomi</p>
+              <small>Foto: Tim Dokumentasi Desa</small>
+            </div>
+          </div>
+        </div>
+        
+        <div class="gallery-item" data-category="alam">
+          <img src="images/galery/18.jpg" alt="Mata Air" onclick="openLightbox(this)">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">
+              <h4>Mata Air Alami</h4>
+              <p>Sumber air bersih</p>
+              <small>Foto: Tim Dokumentasi Desa</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <button class="lightbox-close" onclick="closeLightbox()">
+        <i class="fas fa-times"></i>
+      </button>
+      <img id="lightbox-img" src="" alt="">
+      <button class="lightbox-nav lightbox-prev" onclick="prevImage()">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button class="lightbox-nav lightbox-next" onclick="nextImage()">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <div class="footer-logo">
+              <img src="images/logo.png" alt="Logo Desa" class="logo-img">
+              <h4>Desa Gringsing</h4>
+            </div>
+            <p>Desa Gringsing merupakan desa yang berlokasi di Kabupaten Batang, Jawa Tengah. Berbasis pertanian dan UMKM dengan visi menjadi desa yang maju, mandiri, dan sejahtera.</p>
+            <div class="social-links">
+              <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h4>Layanan Cepat</h4>
+            <ul class="footer-links">
+              <li><a href="layanan.html">Surat Pengantar</a></li>
+              <li><a href="layanan.html">SKCK</a></li>
+              <li><a href="layanan.html">IMB</a></li>
+              <li><a href="layanan.html">Bantuan Sosial</a></li>
+              <li><a href="layanan.html">Data Penduduk</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Informasi</h4>
+            <ul class="footer-links">
+              <li><a href="profil-desa.html">Profil Desa</a></li>
+              <li><a href="berita.html">Berita & Pengumuman</a></li>
+              <li><a href="galeri.html">Galeri Foto</a></li>
+              <li><a href="statistik.html">Statistik</a></li>
+              <li><a href="kontak.html">Kontak</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Kontak</h4>
+            <div class="contact-info">
+              <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                  <h5>Alamat</h5>
+                  <p>Balai Desa Gringsing, Kec. Gringsing, Kab. Batang, Jawa Tengah</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <div>
+                  <h5>Telepon</h5>
+                  <p>(0295) 123456</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <div>
+                  <h5>Email</h5>
+                  <p>info@gringsing.desa.id</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-clock"></i>
+                <div>
+                  <h5>Jam Kerja</h5>
+                  <p>Senin - Jumat: 08:00 - 16:00</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="footer-bottom-content">
+          <p>&copy; 2025 Pemerintah Desa Gringsing. Semua Hak Dilindungi.</p>
+          <div class="footer-bottom-links">
+            <a href="#">Kebijakan Privasi</a>
+            <a href="#">Syarat & Ketentuan</a>
+            <a href="#">Peta Situs</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" title="Kembali ke atas">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="toast">
+    <div class="toast-content">
+      <i class="toast-icon"></i>
+      <span class="toast-message"></span>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/home.js"></script>
+  <script>
+    // Lightbox functionality
+    let currentImageIndex = 0;
+    const images = document.querySelectorAll('.gallery-item img');
+    
+    function openLightbox(img) {
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      currentImageIndex = Array.from(images).indexOf(img);
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.style.display = 'flex';
+    }
+    
+    function closeLightbox() {
+      document.getElementById('lightbox').style.display = 'none';
+    }
+    
+    function prevImage() {
+      currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+      document.getElementById('lightbox-img').src = images[currentImageIndex].src;
+    }
+    
+    function nextImage() {
+      currentImageIndex = (currentImageIndex + 1) % images.length;
+      document.getElementById('lightbox-img').src = images[currentImageIndex].src;
+    }
+    
+    // Close lightbox with escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeLightbox();
+      }
+    });
+    
+    // Update gallery stats
+    function updateGalleryStats() {
+      const visibleItems = document.querySelectorAll('.gallery-item[style*="block"], .gallery-item:not([style*="none"])');
+      document.getElementById('showing-photos').textContent = visibleItems.length;
+    }
+    
+    // Enhanced filter functionality
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        const filter = this.dataset.filter;
+        
+        galleryItems.forEach(item => {
+          if (filter === 'all' || item.dataset.category === filter) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+        
+        updateGalleryStats();
+      });
+    });
+    
+    // Initialize stats
+    updateGalleryStats();
+  </script>
+</body>
+</html> 

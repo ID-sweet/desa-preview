@@ -7,7 +7,7 @@
   <meta name="description" content="Website resmi Desa Gringsing, Kabupaten Batang, Jawa Tengah. Informasi layanan, berita, dan profil desa.">
   <meta name="keywords" content="desa gringsing, batang, jawa tengah, layanan desa, informasi desa">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link rel="stylesheet" href="css/home.css"/>
+  <link rel="stylesheet" href="custom.css"/>
   <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 </head>
 <body>
@@ -21,35 +21,43 @@
   <!-- Navbar -->
   <nav class="navbar">
     <div class="nav-container">
+      <div class="nav-logo">
+        <img src="images/logo.png" alt="Logo Desa" class="logo-img">
+      </div>
       <div class="nav-left">
-        <div class="nav-logo">
-          <img src="images/logo.png" alt="Logo Desa" class="logo-img">
-          <span>Desa Gringsing</span>
-        </div>
-        <div class="nav-links" id="nav-links">
-          <a href="#beranda" class="nav-link active">Beranda</a>
-          <a href="#profil" class="nav-link">Profil</a>
-          <a href="#layanan" class="nav-link">Layanan</a>
-          <a href="#galeri" class="nav-link">Galeri</a>
-          <a href="#berita" class="nav-link">Berita</a>
-          <a href="#statistik" class="nav-link">Statistik</a>
-          <a href="#kontak" class="nav-link">Kontak</a>
+        <!-- kosong atau isi jika perlu -->
+      </div>
+      <div class="nav-links" id="nav-links">
+        <a href="#beranda" class="nav-link active">Beranda</a>
+        <a href="profil-desa.html" class="nav-link">Profil</a>
+        <a href="layanan.html" class="nav-link">Layanan</a>
+        <a href="galeri.html" class="nav-link">Galeri</a>
+        <a href="berita.html" class="nav-link">Berita</a>
+        <a href="statistik.html" class="nav-link">Statistik</a>
+        <a href="kontak.html" class="nav-link">Kontak</a>
+        <div class="nav-icons">
+          <button class="nav-icon" id="search-btn-mobile" title="Cari">
+            <i class="fas fa-search"></i>
+          </button>
+          <button class="nav-icon" id="theme-toggle-mobile" title="Ganti Tema">
+            <i class="fas fa-moon"></i>
+          </button>
+          <a href="login.html" class="nav-icon" title="Login Admin">
+            <i class="fas fa-user-shield"></i>
+          </a>
         </div>
       </div>
       <div class="nav-right">
         <div class="nav-icons">
-          <a href="dashboard/login.html" class="nav-icon" title="Login Admin">
-            <i class="fas fa-user-shield"></i>
-          </a>
           <button class="nav-icon" id="search-btn" title="Cari">
             <i class="fas fa-search"></i>
           </button>
           <button class="nav-icon" id="theme-toggle" title="Ganti Tema">
             <i class="fas fa-moon"></i>
           </button>
-          <button class="nav-icon" id="language-toggle" title="Ganti Bahasa">
-            <i class="fas fa-globe"></i>
-          </button>
+          <a href="login.html" class="nav-icon" title="Login Admin">
+            <i class="fas fa-user-shield"></i>
+          </a>
         </div>
         <button class="hamburger" id="hamburger">
           <span></span>
@@ -87,28 +95,7 @@
     </div>
   </div>
 
-  <!-- Language Modal -->
-  <div class="modal" id="language-modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3>Pilih Bahasa</h3>
-        <button class="modal-close" id="close-language">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      <div class="language-options">
-        <button class="language-option active" data-lang="id">
-          <i class="fas fa-flag"></i> Indonesia
-        </button>
-        <button class="language-option" data-lang="en">
-          <i class="fas fa-flag"></i> English
-        </button>
-        <button class="language-option" data-lang="jv">
-          <i class="fas fa-flag"></i> Jawa
-        </button>
-      </div>
-    </div>
-  </div>
+
 
   <!-- Hero Carousel -->
   <section class="hero" id="beranda">
@@ -668,7 +655,7 @@
         <div class="footer-grid">
           <div class="footer-col">
             <div class="footer-logo">
-              <img src="images/logo-desa.png" alt="Logo Desa" class="logo-img">
+              <img src="images/logo.png" alt="Logo Desa" class="logo-img">
               <h4>Desa Gringsing</h4>
             </div>
             <p>Desa Gringsing merupakan desa yang berlokasi di Kabupaten Batang, Jawa Tengah. Berbasis pertanian dan UMKM dengan visi menjadi desa yang maju, mandiri, dan sejahtera.</p>

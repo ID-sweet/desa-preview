@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profil Desa Gringsing - Website Desa</title>
+  <meta name="description" content="Profil lengkap Desa Gringsing, Kabupaten Batang, Jawa Tengah">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="custom.css"/>
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+</head>
+<body>
+  <!-- Loading Animation -->
+  <div id="loading">
+    <div class="loader">
+      <div class="loader-text">Desa Gringsing</div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <img src="images/logo.png" alt="Logo Desa" class="logo-img">
+      </div>
+      <div class="nav-left">
+        <!-- kosong atau isi jika perlu -->
+      </div>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html" class="nav-link">Beranda</a>
+        <a href="profil-desa.html" class="nav-link">Profil</a>
+        <a href="layanan.html" class="nav-link">Layanan</a>
+        <a href="galeri.html" class="nav-link">Galeri</a>
+        <a href="berita.html" class="nav-link">Berita</a>
+        <a href="statistik.html" class="nav-link">Statistik</a>
+        <a href="kontak.html" class="nav-link">Kontak</a>
+        <div class="nav-icons">
+          <button class="nav-icon" id="search-btn-mobile" title="Cari">
+            <i class="fas fa-search"></i>
+          </button>
+          <button class="nav-icon" id="theme-toggle-mobile" title="Ganti Tema">
+            <i class="fas fa-moon"></i>
+          </button>
+          <a href="login.html" class="nav-icon" title="Login Admin">
+            <i class="fas fa-user-shield"></i>
+          </a>
+        </div>
+      </div>
+      <div class="nav-right">
+        <div class="nav-icons">
+          <button class="nav-icon" id="search-btn" title="Cari">
+            <i class="fas fa-search"></i>
+          </button>
+          <button class="nav-icon" id="theme-toggle" title="Ganti Tema">
+            <i class="fas fa-moon"></i>
+          </button>
+          <a href="dashboard/login.html" class="nav-icon" title="Login Admin">
+            <i class="fas fa-user-shield"></i>
+          </a>
+        </div>
+        <button class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Search Modal -->
+  <div class="modal" id="search-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Cari Informasi Desa</h3>
+        <button class="modal-close" id="close-search">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="search-container">
+        <input type="text" id="search-input" placeholder="Ketik kata kunci pencarian...">
+        <button onclick="search()" class="search-btn">
+          <i class="fas fa-search"></i> Cari
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Hero Section -->
+  <section class="hero" style="height: 300px; background: var(--gradient-primary);">
+    <div class="container">
+      <div class="hero-content" style="text-align: center; color: white; padding-top: 100px;">
+        <h1>Profil Desa Gringsing</h1>
+        <p>Mengenal lebih dekat Desa Gringsing, Kabupaten Batang</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Profil Desa -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Sejarah Desa</h2>
+        <p>Asal usul dan perkembangan Desa Gringsing dari masa ke masa</p>
+      </div>
+      
+      <div class="card-container">
+        <div class="card">
+          <div class="card-image">
+            <img src="images/profil/sejarah.jpg" alt="Sejarah Desa">
+          </div>
+          <div class="card-content">
+            <h3>Asal Usul Nama</h3>
+            <p>Nama "Gringsing" berasal dari bahasa Jawa yang berarti "tidak sakit" atau "sehat". Konon, pada zaman dahulu ada seorang tokoh yang sakit parah dan sembuh setelah tinggal di daerah ini.</p>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-image">
+            <img src="images/profil/perkembangan.jpg" alt="Perkembangan Desa">
+          </div>
+          <div class="card-content">
+            <h3>Perkembangan Desa</h3>
+            <p>Desa Gringsing telah mengalami perkembangan pesat dari desa pertanian tradisional menjadi desa yang modern dengan berbagai fasilitas dan layanan yang memadai.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visi Misi -->
+  <section class="section" style="background: var(--bg-light);">
+    <div class="container">
+      <div class="section-header">
+        <h2>Visi & Misi</h2>
+        <p>Pandangan dan tujuan pembangunan Desa Gringsing</p>
+      </div>
+      
+      <div class="card-container">
+        <div class="card">
+          <div class="card-content">
+            <div class="service-icon" style="margin: 0 auto 20px;">
+              <i class="fas fa-eye"></i>
+            </div>
+            <h3>Visi</h3>
+            <p>"Terwujudnya Desa Gringsing yang Maju, Mandiri, dan Sejahtera dengan Masyarakat yang Berakhlak Mulia"</p>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-content">
+            <div class="service-icon" style="margin: 0 auto 20px;">
+              <i class="fas fa-bullseye"></i>
+            </div>
+            <h3>Misi</h3>
+            <ul style="list-style: none; padding: 0;">
+              <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: var(--accent); margin-right: 10px;"></i>Meningkatkan kualitas pendidikan dan kesehatan masyarakat</li>
+              <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: var(--accent); margin-right: 10px;"></i>Mengembangkan ekonomi kerakyatan berbasis pertanian dan UMKM</li>
+              <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: var(--accent); margin-right: 10px;"></i>Membangun infrastruktur desa yang berkelanjutan</li>
+              <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: var(--accent); margin-right: 10px;"></i>Melestarikan budaya dan adat istiadat</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Geografis -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Kondisi Geografis</h2>
+        <p>Letak, batas wilayah, dan kondisi alam Desa Gringsing</p>
+      </div>
+      
+      <div class="card-container">
+        <div class="card">
+          <div class="card-content">
+            <h3><i class="fas fa-map-marker-alt" style="color: var(--accent); margin-right: 10px;"></i>Letak Geografis</h3>
+            <ul style="list-style: none; padding: 0;">
+              <li style="margin-bottom: 8px;"><strong>Kecamatan:</strong> Gringsing</li>
+              <li style="margin-bottom: 8px;"><strong>Kabupaten:</strong> Batang</li>
+              <li style="margin-bottom: 8px;"><strong>Provinsi:</strong> Jawa Tengah</li>
+              <li style="margin-bottom: 8px;"><strong>Luas Wilayah:</strong> 2.5 km²</li>
+              <li style="margin-bottom: 8px;"><strong>Ketinggian:</strong> 15-25 mdpl</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-content">
+            <h3><i class="fas fa-border-all" style="color: var(--accent); margin-right: 10px;"></i>Batas Wilayah</h3>
+            <ul style="list-style: none; padding: 0;">
+              <li style="margin-bottom: 8px;"><strong>Utara:</strong> Desa [Nama Desa]</li>
+              <li style="margin-bottom: 8px;"><strong>Selatan:</strong> Desa [Nama Desa]</li>
+              <li style="margin-bottom: 8px;"><strong>Barat:</strong> Desa [Nama Desa]</li>
+              <li style="margin-bottom: 8px;"><strong>Timur:</strong> Desa [Nama Desa]</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-content">
+            <h3><i class="fas fa-cloud-sun" style="color: var(--accent); margin-right: 10px;"></i>Iklim & Cuaca</h3>
+            <ul style="list-style: none; padding: 0;">
+              <li style="margin-bottom: 8px;"><strong>Iklim:</strong> Tropis</li>
+              <li style="margin-bottom: 8px;"><strong>Curah Hujan:</strong> 2000-3000 mm/tahun</li>
+              <li style="margin-bottom: 8px;"><strong>Suhu Rata-rata:</strong> 25-30°C</li>
+              <li style="margin-bottom: 8px;"><strong>Musim:</strong> Kemarau & Hujan</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pemerintahan -->
+  <section class="section" style="background: var(--bg-light);">
+    <div class="container">
+      <div class="section-header">
+        <h2>Pemerintahan Desa</h2>
+        <p>Struktur organisasi dan aparatur pemerintahan desa</p>
+      </div>
+      
+      <div class="card-container">
+        <div class="card">
+          <div class="card-content">
+            <h3><i class="fas fa-user-tie" style="color: var(--accent); margin-right: 10px;"></i>Kepala Desa</h3>
+            <p><strong>Nama:</strong> [Nama Kepala Desa]</p>
+            <p><strong>Periode:</strong> 2021-2027</p>
+            <p><strong>Visi Kepemimpinan:</strong> "Membangun Desa Gringsing yang Maju dan Sejahtera"</p>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-content">
+            <h3><i class="fas fa-users" style="color: var(--accent); margin-right: 10px;"></i>Badan Permusyawaratan Desa</h3>
+            <p><strong>Ketua:</strong> [Nama Ketua BPD]</p>
+            <p><strong>Jumlah Anggota:</strong> 7 Orang</p>
+            <p><strong>Fungsi:</strong> Legislasi, Anggaran, dan Pengawasan</p>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-content">
+            <h3><i class="fas fa-sitemap" style="color: var(--accent); margin-right: 10px;"></i>Struktur Organisasi</h3>
+            <ul style="list-style: none; padding: 0;">
+              <li style="margin-bottom: 8px;"><i class="fas fa-circle" style="color: var(--accent); margin-right: 10px; font-size: 8px;"></i>Sekretaris Desa</li>
+              <li style="margin-bottom: 8px;"><i class="fas fa-circle" style="color: var(--accent); margin-right: 10px; font-size: 8px;"></i>Kasi Pemerintahan</li>
+              <li style="margin-bottom: 8px;"><i class="fas fa-circle" style="color: var(--accent); margin-right: 10px; font-size: 8px;"></i>Kasi Kesejahteraan</li>
+              <li style="margin-bottom: 8px;"><i class="fas fa-circle" style="color: var(--accent); margin-right: 10px; font-size: 8px;"></i>Kasi Pelayanan</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Potensi Desa -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Potensi Desa</h2>
+        <p>Sumber daya alam dan potensi ekonomi Desa Gringsing</p>
+      </div>
+      
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-seedling"></i>
+          </div>
+          <h3>Pertanian</h3>
+          <p>Komoditas utama: Padi, Jagung, Kedelai, Sayuran, dan Buah-buahan</p>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-fish"></i>
+          </div>
+          <h3>Perikanan</h3>
+          <p>Budidaya ikan lele, nila, dan gurame dalam kolam dan tambak</p>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-industry"></i>
+          </div>
+          <h3>UMKM</h3>
+          <p>Kerajinan tangan, makanan olahan, dan usaha kecil menengah</p>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-tree"></i>
+          </div>
+          <h3>Perkebunan</h3>
+          <p>Kebun kelapa, pisang, dan tanaman keras lainnya</p>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-store"></i>
+          </div>
+          <h3>Perdagangan</h3>
+          <p>Pasar desa, warung, dan toko kelontong</p>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-mountain"></i>
+          </div>
+          <h3>Pariwisata</h3>
+          <p>Potensi wisata alam, budaya, dan agrowisata</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <div class="footer-logo">
+              <img src="images/logo.png" alt="Logo Desa" class="logo-img">
+              <h4>Desa Gringsing</h4>
+            </div>
+            <p>Desa Gringsing merupakan desa yang berlokasi di Kabupaten Batang, Jawa Tengah. Berbasis pertanian dan UMKM dengan visi menjadi desa yang maju, mandiri, dan sejahtera.</p>
+            <div class="social-links">
+              <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h4>Layanan Cepat</h4>
+            <ul class="footer-links">
+              <li><a href="layanan.html">Surat Pengantar</a></li>
+              <li><a href="layanan.html">SKCK</a></li>
+              <li><a href="layanan.html">IMB</a></li>
+              <li><a href="layanan.html">Bantuan Sosial</a></li>
+              <li><a href="layanan.html">Data Penduduk</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Informasi</h4>
+            <ul class="footer-links">
+              <li><a href="profil-desa.html">Profil Desa</a></li>
+              <li><a href="berita.html">Berita & Pengumuman</a></li>
+              <li><a href="galeri.html">Galeri Foto</a></li>
+              <li><a href="statistik.html">Statistik</a></li>
+              <li><a href="kontak.html">Kontak</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Kontak</h4>
+            <div class="contact-info">
+              <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                  <h5>Alamat</h5>
+                  <p>Balai Desa Gringsing, Kec. Gringsing, Kab. Batang, Jawa Tengah</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <div>
+                  <h5>Telepon</h5>
+                  <p>(0295) 123456</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <div>
+                  <h5>Email</h5>
+                  <p>info@gringsing.desa.id</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-clock"></i>
+                <div>
+                  <h5>Jam Kerja</h5>
+                  <p>Senin - Jumat: 08:00 - 16:00</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="footer-bottom-content">
+          <p>&copy; 2025 Pemerintah Desa Gringsing. Semua Hak Dilindungi.</p>
+          <div class="footer-bottom-links">
+            <a href="#">Kebijakan Privasi</a>
+            <a href="#">Syarat & Ketentuan</a>
+            <a href="#">Peta Situs</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" title="Kembali ke atas">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="toast">
+    <div class="toast-content">
+      <i class="toast-icon"></i>
+      <span class="toast-message"></span>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/home.js"></script>
+</body>
+</html> 

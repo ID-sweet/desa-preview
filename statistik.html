@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Statistik Desa Gringsing - Website Desa</title>
+  <meta name="description" content="Data statistik kependudukan dan perkembangan Desa Gringsing">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="custom.css"/>
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+</head>
+<body>
+  <!-- Loading Animation -->
+  <div id="loading">
+    <div class="loader">
+      <div class="loader-text">Desa Gringsing</div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <img src="images/logo.png" alt="Logo Desa" class="logo-img">
+      </div>
+      <div class="nav-left">
+        <!-- kosong atau isi jika perlu -->
+      </div>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html" class="nav-link">Beranda</a>
+        <a href="profil-desa.html" class="nav-link">Profil</a>
+        <a href="layanan.html" class="nav-link">Layanan</a>
+        <a href="galeri.html" class="nav-link">Galeri</a>
+        <a href="berita.html" class="nav-link">Berita</a>
+        <a href="statistik.html" class="nav-link">Statistik</a>
+        <a href="kontak.html" class="nav-link">Kontak</a>
+        <div class="nav-icons">
+          <button class="nav-icon" id="search-btn-mobile" title="Cari">
+            <i class="fas fa-search"></i>
+          </button>
+          <button class="nav-icon" id="theme-toggle-mobile" title="Ganti Tema">
+            <i class="fas fa-moon"></i>
+          </button>
+          <a href="login.html" class="nav-icon" title="Login Admin">
+            <i class="fas fa-user-shield"></i>
+          </a>
+        </div>
+      </div>
+      <div class="nav-right">
+        <div class="nav-icons">
+          <button class="nav-icon" id="search-btn" title="Cari">
+            <i class="fas fa-search"></i>
+          </button>
+          <button class="nav-icon" id="theme-toggle" title="Ganti Tema">
+            <i class="fas fa-moon"></i>
+          </button>
+          <a href="login.html" class="nav-icon" title="Login Admin">
+            <i class="fas fa-user-shield"></i>
+          </a>
+        </div>
+        <button class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Search Modal -->
+  <div class="modal" id="search-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Cari Informasi Desa</h3>
+        <button class="modal-close" id="close-search">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="search-container">
+        <input type="text" id="search-input" placeholder="Ketik kata kunci pencarian...">
+        <button onclick="search()" class="search-btn">
+          <i class="fas fa-search"></i> Cari
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero" style="height: 300px; background: var(--gradient-secondary);">
+    <div class="container">
+      <div class="hero-content" style="text-align: center; color: white; padding-top: 100px;">
+        <h1>Statistik Desa</h1>
+        <p>Data kependudukan dan perkembangan Desa Gringsing</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statistik Overview -->
+  <section class="stats-overview">
+    <div class="container">
+      <div class="stat-overview-item">
+        <h3 class="counter" data-target="2500">0</h3>
+        <p>Total Penduduk</p>
+        <div class="trend-indicator trend-up">
+          <i class="fas fa-arrow-up"></i> +2.5%
+        </div>
+      </div>
+      <div class="stat-overview-item">
+        <h3 class="counter" data-target="600">0</h3>
+        <p>Kepala Keluarga</p>
+        <div class="trend-indicator trend-up">
+          <i class="fas fa-arrow-up"></i> +1.8%
+        </div>
+      </div>
+      <div class="stat-overview-item">
+        <h3 class="counter" data-target="15">0</h3>
+        <p>RT/RW</p>
+        <div class="trend-indicator trend-stable">
+          <i class="fas fa-minus"></i> Stabil
+        </div>
+      </div>
+      <div class="stat-overview-item">
+        <h3 class="counter" data-target="50">0</h3>
+        <p>UMKM</p>
+        <div class="trend-indicator trend-up">
+          <i class="fas fa-arrow-up"></i> +5.2%
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statistik Detail -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Statistik Kependudukan</h2>
+        <p>Data detail kependudukan Desa Gringsing tahun 2025</p>
+      </div>
+      
+      <div class="stats-container">
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="stat-content">
+            <h3 class="counter" data-target="2500">0</h3>
+            <p>Total Penduduk</p>
+            <div class="stat-trend positive">
+              <i class="fas fa-arrow-up"></i> +2.5%
+            </div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-male"></i>
+          </div>
+          <div class="stat-content">
+            <h3 class="counter" data-target="1200">0</h3>
+            <p>Laki-laki</p>
+            <div class="stat-trend positive">
+              <i class="fas fa-arrow-up"></i> +1.8%
+            </div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-female"></i>
+          </div>
+          <div class="stat-content">
+            <h3 class="counter" data-target="1300">0</h3>
+            <p>Perempuan</p>
+            <div class="stat-trend positive">
+              <i class="fas fa-arrow-up"></i> +3.2%
+            </div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-home"></i>
+          </div>
+          <div class="stat-content">
+            <h3 class="counter" data-target="600">0</h3>
+            <p>Kepala Keluarga</p>
+            <div class="stat-trend positive">
+              <i class="fas fa-arrow-up"></i> +1.5%
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Grafik Pertumbuhan Penduduk -->
+  <section class="section" style="background: var(--bg-light);">
+    <div class="container">
+      <div class="chart-section">
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3 class="chart-title">Pertumbuhan Penduduk (5 Tahun Terakhir)</h3>
+            <div class="chart-legend">
+              <div class="legend-item">
+                <div class="legend-color" style="background: #4facfe;"></div>
+                <span>Total Penduduk</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color" style="background: #f093fb;"></div>
+                <span>Laki-laki</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color" style="background: #f5576c;"></div>
+                <span>Perempuan</span>
+              </div>
+            </div>
+          </div>
+          <canvas id="populationChart" width="400" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Grafik Distribusi Usia -->
+  <section class="section">
+    <div class="container">
+      <div class="chart-section">
+        <div class="chart-container">
+          <div class="chart-header">
+            <h3 class="chart-title">Distribusi Usia Penduduk</h3>
+            <div class="chart-legend">
+              <div class="legend-item">
+                <div class="legend-color" style="background: #667eea;"></div>
+                <span>Usia Produktif</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color" style="background: #764ba2;"></div>
+                <span>Usia Muda</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color" style="background: #f093fb;"></div>
+                <span>Usia Lanjut</span>
+              </div>
+            </div>
+          </div>
+          <canvas id="ageChart" width="400" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tabel Data Detail -->
+  <section class="section" style="background: var(--bg-light);">
+    <div class="container">
+      <div class="section-header">
+        <h2>Data Detail Kependudukan</h2>
+        <p>Informasi lengkap berdasarkan RT/RW</p>
+      </div>
+      
+      <div class="chart-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>RT/RW</th>
+              <th>Kepala Keluarga</th>
+              <th>Laki-laki</th>
+              <th>Perempuan</th>
+              <th>Total</th>
+              <th>Kepadatan</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>RT 001/RW 001</td>
+              <td>45</td>
+              <td>98</td>
+              <td>102</td>
+              <td>200</td>
+              <td>80 jiwa/km²</td>
+            </tr>
+            <tr>
+              <td>RT 002/RW 001</td>
+              <td>52</td>
+              <td>115</td>
+              <td>118</td>
+              <td>233</td>
+              <td>93 jiwa/km²</td>
+            </tr>
+            <tr>
+              <td>RT 003/RW 001</td>
+              <td>48</td>
+              <td>105</td>
+              <td>110</td>
+              <td>215</td>
+              <td>86 jiwa/km²</td>
+            </tr>
+            <tr>
+              <td>RT 004/RW 002</td>
+              <td>50</td>
+              <td>108</td>
+              <td>112</td>
+              <td>220</td>
+              <td>88 jiwa/km²</td>
+            </tr>
+            <tr>
+              <td>RT 005/RW 002</td>
+              <td>47</td>
+              <td>102</td>
+              <td>105</td>
+              <td>207</td>
+              <td>83 jiwa/km²</td>
+            </tr>
+            <tr>
+              <td>RT 006/RW 002</td>
+              <td>49</td>
+              <td>106</td>
+              <td>109</td>
+              <td>215</td>
+              <td>86 jiwa/km²</td>
+            </tr>
+            <tr>
+              <td>RT 007/RW 003</td>
+              <td>51</td>
+              <td>110</td>
+              <td>115</td>
+              <td>225</td>
+              <td>90 jiwa/km²</td>
+            </tr>
+            <tr>
+              <td>RT 008/RW 003</td>
+              <td>46</td>
+              <td>99</td>
+              <td>103</td>
+              <td>202</td>
+              <td>81 jiwa/km²</td>
+            </tr>
+            <tr>
+              <td>RT 009/RW 003</td>
+              <td>53</td>
+              <td>114</td>
+              <td>118</td>
+              <td>232</td>
+              <td>93 jiwa/km²</td>
+            </tr>
+            <tr>
+              <td>RT 010/RW 004</td>
+              <td>48</td>
+              <td>103</td>
+              <td>107</td>
+              <td>210</td>
+              <td>84 jiwa/km²</td>
+            </tr>
+            <tr>
+              <td>RT 011/RW 004</td>
+              <td>50</td>
+              <td>108</td>
+              <td>111</td>
+              <td>219</td>
+              <td>88 jiwa/km²</td>
+            </tr>
+            <tr>
+              <td>RT 012/RW 004</td>
+              <td>47</td>
+              <td>101</td>
+              <td>104</td>
+              <td>205</td>
+              <td>82 jiwa/km²</td>
+            </tr>
+            <tr>
+              <td>RT 013/RW 005</td>
+              <td>49</td>
+              <td>105</td>
+              <td>108</td>
+              <td>213</td>
+              <td>85 jiwa/km²</td>
+            </tr>
+            <tr>
+              <td>RT 014/RW 005</td>
+              <td>52</td>
+              <td>112</td>
+              <td>116</td>
+              <td>228</td>
+              <td>91 jiwa/km²</td>
+            </tr>
+            <tr>
+              <td>RT 015/RW 005</td>
+              <td>45</td>
+              <td>97</td>
+              <td>100</td>
+              <td>197</td>
+              <td>79 jiwa/km²</td>
+            </tr>
+            <tr style="font-weight: bold; background: var(--bg-light);">
+              <td><strong>TOTAL</strong></td>
+              <td><strong>600</strong></td>
+              <td><strong>1,200</strong></td>
+              <td><strong>1,300</strong></td>
+              <td><strong>2,500</strong></td>
+              <td><strong>1,000 jiwa/km²</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statistik Ekonomi -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Statistik Ekonomi</h2>
+        <p>Data perkembangan ekonomi dan UMKM desa</p>
+      </div>
+      
+      <div class="card-container">
+        <div class="card">
+          <div class="card-content">
+            <h3><i class="fas fa-industry" style="color: var(--accent); margin-right: 10px;"></i>UMKM</h3>
+            <ul style="list-style: none; padding: 0;">
+              <li style="margin-bottom: 8px;"><strong>Total UMKM:</strong> 50 Unit</li>
+              <li style="margin-bottom: 8px;"><strong>Pertanian:</strong> 25 Unit</li>
+              <li style="margin-bottom: 8px;"><strong>Kerajinan:</strong> 15 Unit</li>
+              <li style="margin-bottom: 8px;"><strong>Jasa:</strong> 10 Unit</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-content">
+            <h3><i class="fas fa-chart-line" style="color: var(--accent); margin-right: 10px;"></i>Pertumbuhan Ekonomi</h3>
+            <ul style="list-style: none; padding: 0;">
+              <li style="margin-bottom: 8px;"><strong>PDRB Desa:</strong> Rp 2.5 Miliar</li>
+              <li style="margin-bottom: 8px;"><strong>Pertumbuhan:</strong> +5.2%</li>
+              <li style="margin-bottom: 8px;"><strong>Pendapatan per Kapita:</strong> Rp 1.000.000</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-content">
+            <h3><i class="fas fa-briefcase" style="color: var(--accent); margin-right: 10px;"></i>Lapangan Usaha</h3>
+            <ul style="list-style: none; padding: 0;">
+              <li style="margin-bottom: 8px;"><strong>Pertanian:</strong> 60%</li>
+              <li style="margin-bottom: 8px;"><strong>Perdagangan:</strong> 20%</li>
+              <li style="margin-bottom: 8px;"><strong>Jasa:</strong> 15%</li>
+              <li style="margin-bottom: 8px;"><strong>Lainnya:</strong> 5%</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <div class="footer-logo">
+              <img src="images/logo.png" alt="Logo Desa" class="logo-img">
+              <h4>Desa Gringsing</h4>
+            </div>
+            <p>Desa Gringsing merupakan desa yang berlokasi di Kabupaten Batang, Jawa Tengah. Berbasis pertanian dan UMKM dengan visi menjadi desa yang maju, mandiri, dan sejahtera.</p>
+            <div class="social-links">
+              <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h4>Layanan Cepat</h4>
+            <ul class="footer-links">
+              <li><a href="layanan.html">Surat Pengantar</a></li>
+              <li><a href="layanan.html">SKCK</a></li>
+              <li><a href="layanan.html">IMB</a></li>
+              <li><a href="layanan.html">Bantuan Sosial</a></li>
+              <li><a href="layanan.html">Data Penduduk</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Informasi</h4>
+            <ul class="footer-links">
+              <li><a href="profil-desa.html">Profil Desa</a></li>
+              <li><a href="berita.html">Berita & Pengumuman</a></li>
+              <li><a href="galeri.html">Galeri Foto</a></li>
+              <li><a href="statistik.html">Statistik</a></li>
+              <li><a href="kontak.html">Kontak</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Kontak</h4>
+            <div class="contact-info">
+              <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                  <h5>Alamat</h5>
+                  <p>Balai Desa Gringsing, Kec. Gringsing, Kab. Batang, Jawa Tengah</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <div>
+                  <h5>Telepon</h5>
+                  <p>(0295) 123456</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <div>
+                  <h5>Email</h5>
+                  <p>info@gringsing.desa.id</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-clock"></i>
+                <div>
+                  <h5>Jam Kerja</h5>
+                  <p>Senin - Jumat: 08:00 - 16:00</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="footer-bottom-content">
+          <p>&copy; 2025 Pemerintah Desa Gringsing. Semua Hak Dilindungi.</p>
+          <div class="footer-bottom-links">
+            <a href="#">Kebijakan Privasi</a>
+            <a href="#">Syarat & Ketentuan</a>
+            <a href="#">Peta Situs</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" title="Kembali ke atas">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="toast">
+    <div class="toast-content">
+      <i class="toast-icon"></i>
+      <span class="toast-message"></span>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/home.js"></script>
+  <script>
+    // Population Chart
+    const populationCtx = document.getElementById('populationChart').getContext('2d');
+    new Chart(populationCtx, {
+      type: 'line',
+      data: {
+        labels: ['2021', '2022', '2023', '2024', '2025'],
+        datasets: [{
+          label: 'Total Penduduk',
+          data: [2300, 2350, 2400, 2450, 2500],
+          borderColor: '#4facfe',
+          backgroundColor: 'rgba(79, 172, 254, 0.1)',
+          tension: 0.4
+        }, {
+          label: 'Laki-laki',
+          data: [1100, 1120, 1140, 1160, 1200],
+          borderColor: '#f093fb',
+          backgroundColor: 'rgba(240, 147, 251, 0.1)',
+          tension: 0.4
+        }, {
+          label: 'Perempuan',
+          data: [1200, 1230, 1260, 1290, 1300],
+          borderColor: '#f5576c',
+          backgroundColor: 'rgba(245, 87, 108, 0.1)',
+          tension: 0.4
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    // Age Distribution Chart
+    const ageCtx = document.getElementById('ageChart').getContext('2d');
+    new Chart(ageCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Usia Muda (0-17)', 'Usia Produktif (18-65)', 'Usia Lanjut (65+)'],
+        datasets: [{
+          data: [800, 1500, 200],
+          backgroundColor: ['#667eea', '#764ba2', '#f093fb']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html> 

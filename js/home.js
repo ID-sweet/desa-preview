@@ -1,8 +1,19 @@
 // ====== NAVIGASI HAMBURGER ======
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('nav-links');
+
 hamburger.addEventListener('click', () => {
   navLinks.classList.toggle('active');
+  hamburger.classList.toggle('active');
+});
+
+// Close hamburger menu when clicking on nav links
+const navLinkElements = document.querySelectorAll('.nav-link');
+navLinkElements.forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('active');
+    hamburger.classList.remove('active');
+  });
 });
 
 // ====== SCROLL KE SECTION ======
@@ -16,12 +27,19 @@ window.scrollToSection = scrollToSection;
 
 // ====== MODAL PENCARIAN ======
 const searchBtn = document.getElementById('search-btn');
+const searchBtnMobile = document.getElementById('search-btn-mobile');
 const searchModal = document.getElementById('search-modal');
 const closeSearch = document.getElementById('close-search');
-searchBtn.addEventListener('click', () => {
+
+function openSearchModal() {
   searchModal.style.display = 'flex';
   document.getElementById('search-input').focus();
-});
+}
+
+searchBtn.addEventListener('click', openSearchModal);
+if (searchBtnMobile) {
+  searchBtnMobile.addEventListener('click', openSearchModal);
+}
 closeSearch.addEventListener('click', () => {
   searchModal.style.display = 'none';
 });
@@ -39,40 +57,31 @@ function searchByTag(tag) {
 }
 window.searchByTag = searchByTag;
 
-// ====== MODAL BAHASA ======
-const languageToggle = document.getElementById('language-toggle');
-const languageModal = document.getElementById('language-modal');
-const closeLanguage = document.getElementById('close-language');
-languageToggle.addEventListener('click', () => {
-  languageModal.style.display = 'flex';
-});
-closeLanguage.addEventListener('click', () => {
-  languageModal.style.display = 'none';
-});
-languageModal.addEventListener('click', (e) => {
-  if (e.target === languageModal) languageModal.style.display = 'none';
-});
-const langOptions = document.querySelectorAll('.language-option');
-langOptions.forEach(btn => {
-  btn.addEventListener('click', function() {
-    langOptions.forEach(b => b.classList.remove('active'));
-    this.classList.add('active');
-    showToast('Bahasa diubah ke: ' + this.textContent.trim(), 'success');
-    languageModal.style.display = 'none';
-  });
-});
+
 
 // ====== DARK MODE ======
 const themeToggle = document.getElementById('theme-toggle');
+const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+
 function setTheme(dark) {
   document.body.dataset.theme = dark ? 'dark' : 'light';
   themeToggle.classList.toggle('fa-moon', !dark);
   themeToggle.classList.toggle('fa-sun', dark);
+  if (themeToggleMobile) {
+    themeToggleMobile.classList.toggle('fa-moon', !dark);
+    themeToggleMobile.classList.toggle('fa-sun', dark);
+  }
 }
-themeToggle.addEventListener('click', () => {
+
+function toggleTheme() {
   const isDark = document.body.dataset.theme === 'dark';
   setTheme(!isDark);
-});
+}
+
+themeToggle.addEventListener('click', toggleTheme);
+if (themeToggleMobile) {
+  themeToggleMobile.addEventListener('click', toggleTheme);
+}
 // Set default theme
 setTheme(false);
 
