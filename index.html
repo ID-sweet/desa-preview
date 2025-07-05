@@ -3,42 +3,59 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Website Desa Gringsing</title>
+  <title>Website Desa Gringsing - Portal Informasi Desa</title>
+  <meta name="description" content="Website resmi Desa Gringsing, Kabupaten Batang, Jawa Tengah. Informasi layanan, berita, dan profil desa.">
+  <meta name="keywords" content="desa gringsing, batang, jawa tengah, layanan desa, informasi desa">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link rel="stylesheet" href="home.css"/>
-  
+  <link rel="stylesheet" href="css/home.css"/>
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 </head>
 <body>
   <!-- Loading Animation -->
   <div id="loading">
-    <div class="loader"></div>
+    <div class="loader">
+      <div class="loader-text">Desa Gringsing</div>
+    </div>
   </div>
 
   <!-- Navbar -->
-  <nav>
-    <div class="nav-left">
-      <div class="nav-logo">Desa Gringsing</div>
-      <div class="nav-links">
-        <a href="#">Beranda</a>
-        <a href="#">Profil</a>
-        <a href="#">Layanan</a>
-        <a href="#">Galeri</a>
-        <a href="#">Statistik</a>
-        <a href="#">Peta</a>
-        <a href="#">Aduan</a>
-        <a href="#">Kontak</a>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <div class="nav-logo">
+          <img src="images/logo-desa.png" alt="Logo Desa" class="logo-img">
+          <span>Desa Gringsing</span>
+        </div>
+        <div class="nav-links" id="nav-links">
+          <a href="#beranda" class="nav-link active">Beranda</a>
+          <a href="#profil" class="nav-link">Profil</a>
+          <a href="#layanan" class="nav-link">Layanan</a>
+          <a href="#galeri" class="nav-link">Galeri</a>
+          <a href="#berita" class="nav-link">Berita</a>
+          <a href="#statistik" class="nav-link">Statistik</a>
+          <a href="#kontak" class="nav-link">Kontak</a>
+        </div>
       </div>
-    </div>
-    <i class="fas fa-bars hamburger"></i>
-    <div class="nav-right">
-      <div class="nav-icons">
-        <a href="login.html" style="text-decoration: none; color: inherit;">
-  <i class="fas fa-user"></i>
-</a>
-
-        
-        <i class="fas fa-search" id="search-btn"></i>
-        <i class="fas fa-moon" id="theme-toggle"></i>
+      <div class="nav-right">
+        <div class="nav-icons">
+          <a href="dashboard/login.html" class="nav-icon" title="Login Admin">
+            <i class="fas fa-user-shield"></i>
+          </a>
+          <button class="nav-icon" id="search-btn" title="Cari">
+            <i class="fas fa-search"></i>
+          </button>
+          <button class="nav-icon" id="theme-toggle" title="Ganti Tema">
+            <i class="fas fa-moon"></i>
+          </button>
+          <button class="nav-icon" id="language-toggle" title="Ganti Bahasa">
+            <i class="fas fa-globe"></i>
+          </button>
+        </div>
+        <button class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </div>
   </nav>
@@ -46,293 +63,707 @@
   <!-- Search Modal -->
   <div class="modal" id="search-modal">
     <div class="modal-content">
-      <input type="text" id="search-input" placeholder="Cari informasi desa...">
-      <button onclick="search()">Cari</button>
+      <div class="modal-header">
+        <h3>Cari Informasi Desa</h3>
+            <button class="modal-close" id="close-search">
+              <i class="fas fa-times"></i>
+            </button>
+      </div>
+      <div class="search-container">
+        <input type="text" id="search-input" placeholder="Ketik kata kunci pencarian...">
+        <button onclick="search()" class="search-btn">
+          <i class="fas fa-search"></i> Cari
+        </button>
+      </div>
+      <div class="search-suggestions">
+        <h4>Pencarian Populer:</h4>
+        <div class="suggestion-tags">
+          <span class="tag" onclick="searchByTag('layanan')">Layanan Desa</span>
+          <span class="tag" onclick="searchByTag('berita')">Berita Terbaru</span>
+          <span class="tag" onclick="searchByTag('pengumuman')">Pengumuman</span>
+          <span class="tag" onclick="searchByTag('kontak')">Kontak</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Language Modal -->
+  <div class="modal" id="language-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Pilih Bahasa</h3>
+        <button class="modal-close" id="close-language">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="language-options">
+        <button class="language-option active" data-lang="id">
+          <i class="fas fa-flag"></i> Indonesia
+        </button>
+        <button class="language-option" data-lang="en">
+          <i class="fas fa-flag"></i> English
+        </button>
+        <button class="language-option" data-lang="jv">
+          <i class="fas fa-flag"></i> Jawa
+        </button>
+      </div>
     </div>
   </div>
 
   <!-- Hero Carousel -->
-  <div class="hero">
+  <section class="hero" id="beranda">
     <div class="carousel" id="carousel">
       <div class="carousel-slide" style="background-image: url('images/carousel/c1.jpg');">
-        <h1>Selamat Datang di Desa Gringsing</h1>
+        <div class="slide-content">
+          <h1>Selamat Datang di Desa Gringsing</h1>
+          <p>Desa yang maju, mandiri, dan sejahtera di Kabupaten Batang</p>
+          <button class="cta-button" onclick="scrollToSection('profil')">
+            <i class="fas fa-info-circle"></i> Pelajari Lebih Lanjut
+          </button>
+        </div>
       </div>
       <div class="carousel-slide" style="background-image: url('images/carousel/c2.jpg');">
-        <h1>Keindahan Pertanian Kami</h1>
+        <div class="slide-content">
+          <h1>Keindahan Pertanian Kami</h1>
+          <p>Hasil bumi yang melimpah dari sawah dan kebun warga</p>
+          <button class="cta-button" onclick="scrollToSection('galeri')">
+            <i class="fas fa-images"></i> Lihat Galeri
+          </button>
+        </div>
       </div>
       <div class="carousel-slide" style="background-image: url('images/carousel/c3.jpg');">
-        <h1>Festival Budaya Desa</h1>
+        <div class="slide-content">
+          <h1>Festival Budaya Desa</h1>
+          <p>Melestarikan budaya dan tradisi leluhur</p>
+          <button class="cta-button" onclick="scrollToSection('berita')">
+            <i class="fas fa-newspaper"></i> Baca Berita
+          </button>
+        </div>
       </div>
     </div>
     <div class="carousel-controls">
-      <button onclick="prevSlide()"><i class="fas fa-chevron-left"></i></button>
-      <button onclick="nextSlide()"><i class="fas fa-chevron-right"></i></button>
+      <button class="carousel-btn prev" onclick="prevSlide()">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button class="carousel-btn next" onclick="nextSlide()">
+        <i class="fas fa-chevron-right"></i>
+      </button>
     </div>
     <div class="carousel-indicators">
-      <span onclick="goToSlide(0)" class="active"></span>
-      <span onclick="goToSlide(1)"></span>
-      <span onclick="goToSlide(2)"></span>
+      <span class="indicator active" onclick="goToSlide(0)"></span>
+      <span class="indicator" onclick="goToSlide(1)"></span>
+      <span class="indicator" onclick="goToSlide(2)"></span>
     </div>
-  </div>
+  </section>
+
+  <!-- Quick Stats -->
+  <section class="quick-stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <i class="fas fa-users"></i>
+          <div class="stat-info">
+            <h3 class="counter" data-target="2500">0</h3>
+            <p>Total Penduduk</p>
+          </div>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-home"></i>
+          <div class="stat-info">
+            <h3 class="counter" data-target="600">0</h3>
+            <p>Kepala Keluarga</p>
+          </div>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <div class="stat-info">
+            <h3 class="counter" data-target="15">0</h3>
+            <p>RT/RW</p>
+          </div>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-industry"></i>
+          <div class="stat-info">
+            <h3 class="counter" data-target="50">0</h3>
+            <p>UMKM</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Info Terbaru -->
-  <section>
-    <h2>Info Terbaru</h2>
-    <div class="card-container">
-      <div class="card">
-        <img src="images/updated/1.jpg" alt="Musyawarah">
-        <div class="card-content">
-          <h3>Musyawarah Desa</h3>
-          <p>Musyawarah akan diadakan pada 3 Juli 2025 pukul 19.00 WIB di Balai Desa.</p>
+  <section class="section" id="berita">
+    <div class="container">
+      <div class="section-header">
+        <h2>Info Terbaru</h2>
+        <p>Informasi terkini seputar kegiatan dan pengumuman desa</p>
+      </div>
+      <div class="card-container">
+        <div class="card news-card">
+          <div class="card-image">
+            <img src="images/updated/1.jpg" alt="Musyawarah Desa">
+            <div class="card-badge">Penting</div>
+          </div>
+          <div class="card-content">
+            <div class="card-meta">
+              <span class="date"><i class="fas fa-calendar"></i> 3 Juli 2025</span>
+              <span class="category"><i class="fas fa-tag"></i> Pengumuman</span>
+            </div>
+            <h3>Musyawarah Desa</h3>
+            <p>Musyawarah akan diadakan pada 3 Juli 2025 pukul 19.00 WIB di Balai Desa. Semua warga diharapkan hadir.</p>
+            <button class="read-more" onclick="showNewsDetail(1)">
+              Baca Selengkapnya <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card news-card">
+          <div class="card-image">
+            <img src="images/updated/2.jpg" alt="Bantuan Sosial">
+            <div class="card-badge">Terbaru</div>
+          </div>
+          <div class="card-content">
+            <div class="card-meta">
+              <span class="date"><i class="fas fa-calendar"></i> 1 Juli 2025</span>
+              <span class="category"><i class="fas fa-tag"></i> Bantuan</span>
+            </div>
+            <h3>Bantuan Sosial Tahap II</h3>
+            <p>Pembagian bansos dimulai minggu depan. Warga diminta membawa KTP & KK untuk verifikasi.</p>
+            <button class="read-more" onclick="showNewsDetail(2)">
+              Baca Selengkapnya <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card news-card">
+          <div class="card-image">
+            <img src="images/updated/3.jpg" alt="Posyandu">
+            <div class="card-badge">Kesehatan</div>
+          </div>
+          <div class="card-content">
+            <div class="card-meta">
+              <span class="date"><i class="fas fa-calendar"></i> 30 Juni 2025</span>
+              <span class="category"><i class="fas fa-tag"></i> Kesehatan</span>
+            </div>
+            <h3>Posyandu Bulanan</h3>
+            <p>Kegiatan posyandu balita dijadwalkan ulang ke tanggal 5 Juli 2025 di Posyandu Melati.</p>
+            <button class="read-more" onclick="showNewsDetail(3)">
+              Baca Selengkapnya <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
         </div>
       </div>
-      <div class="card">
-        <img src="images/updated/2.jpg" alt="Bansos">
-        <div class="card-content">
-          <h3>Bantuan Sosial Tahap II</h3>
-          <p>Pembagian bansos dimulai minggu depan. Warga diminta membawa KTP & KK.</p>
-        </div>
+      <div class="section-footer">
+        <button class="btn-secondary" onclick="showAllNews()">
+          Lihat Semua Berita <i class="fas fa-newspaper"></i>
+        </button>
       </div>
-      <div class="card">
-        <img src="images/updated/3.jpg" alt="Posyandu">
-        <div class="card-content">
-          <h3>Posyandu Bulanan</h3>
-          <p>Kegiatan posyandu balita dijadwalkan ulang ke tanggal 5 Juli 2025.</p>
+    </div>
+  </section>
+
+  <!-- Layanan Desa -->
+  <section class="section services-section" id="layanan">
+    <div class="container">
+      <div class="section-header">
+        <h2>Layanan Desa</h2>
+        <p>Berbagai layanan yang disediakan untuk warga desa</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-id-card"></i>
+          </div>
+          <h3>Surat Pengantar</h3>
+          <p>Layanan pembuatan surat pengantar untuk berbagai keperluan administrasi</p>
+          <button class="service-btn" onclick="showServiceDetail('surat')">
+            Ajukan Sekarang
+          </button>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-file-alt"></i>
+          </div>
+          <h3>SKCK</h3>
+          <p>Surat Keterangan Catatan Kepolisian untuk keperluan kerja atau studi</p>
+          <button class="service-btn" onclick="showServiceDetail('skck')">
+            Ajukan Sekarang
+          </button>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-home"></i>
+          </div>
+          <h3>IMB</h3>
+          <p>Izin Mendirikan Bangunan untuk pembangunan rumah atau bangunan</p>
+          <button class="service-btn" onclick="showServiceDetail('imb')">
+            Ajukan Sekarang
+          </button>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-hand-holding-heart"></i>
+          </div>
+          <h3>Bantuan Sosial</h3>
+          <p>Informasi dan pendaftaran bantuan sosial untuk warga yang membutuhkan</p>
+          <button class="service-btn" onclick="showServiceDetail('bansos')">
+            Daftar Sekarang
+          </button>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Data Penduduk</h3>
+          <p>Layanan pencarian dan verifikasi data kependudukan</p>
+          <button class="service-btn" onclick="showServiceDetail('data')">
+            Cek Data
+          </button>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-phone"></i>
+          </div>
+          <h3>Konsultasi</h3>
+          <p>Layanan konsultasi untuk berbagai permasalahan warga</p>
+          <button class="service-btn" onclick="showServiceDetail('konsultasi')">
+            Konsultasi
+          </button>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Galeri -->
-  <section>
-    <h2>Galeri Desa</h2>
-    <div class="gallery-container">
-      <div class="gallery-item">
-        <img src="images/galery/1.jpg" alt="Pemandangan Desa">
-        <div class="caption">Pemandangan Sawah Desa Gringsing</div>
+  <section class="section" id="galeri">
+    <div class="container">
+      <div class="section-header">
+        <h2>Galeri Desa</h2>
+        <p>Dokumentasi kegiatan dan keindahan Desa Gringsing</p>
       </div>
-      <div class="gallery-item">
-        <img src="images/galery/2.jpg" alt="Festival Desa">
-        <div class="caption">Festival Budaya Tahunan</div>
+      <div class="gallery-filters">
+        <button class="filter-btn active" data-filter="all">Semua</button>
+        <button class="filter-btn" data-filter="kegiatan">Kegiatan</button>
+        <button class="filter-btn" data-filter="alam">Alam</button>
+        <button class="filter-btn" data-filter="budaya">Budaya</button>
+        <button class="filter-btn" data-filter="infrastruktur">Infrastruktur</button>
       </div>
-      <div class="gallery-item">
-        <img src="images/galery/3.jpg" alt="Pasar Desa">
-        <div class="caption">Pasar Minggu Desa</div>
-      </div>
-      <div class="gallery-item">
-        <img src="images/galery/4.jpg" alt="Pertanian">
-        <div class="caption">Kegiatan Pertanian Lokal</div>
-      </div>
-      <div class="gallery-item">
-        <img src="images/galery/5.jpg" alt="Kerajinan">
-        <div class="caption">Pameran Kerajinan Tangan</div>
-      </div>
-      <div class="gallery-item">
-        <img src="images/galery/6.jpg" alt="Sungai">
-        <div class="caption">Keindahan Sungai Desa</div>
+      <div class="gallery-container">
+        <div class="gallery-item" data-category="alam">
+          <img src="images/galery/1.jpg" alt="Pemandangan Desa">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">
+              <h4>Pemandangan Sawah Desa Gringsing</h4>
+              <p>Keindahan alam pedesaan yang asri</p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-item" data-category="budaya">
+          <img src="images/galery/2.jpg" alt="Festival Desa">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">
+              <h4>Festival Budaya Tahunan</h4>
+              <p>Melestarikan budaya dan tradisi</p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-item" data-category="kegiatan">
+          <img src="images/galery/3.jpg" alt="Pasar Desa">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">
+              <h4>Pasar Minggu Desa</h4>
+              <p>Kegiatan ekonomi warga</p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-item" data-category="kegiatan">
+          <img src="images/galery/4.jpg" alt="Pertanian">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">
+              <h4>Kegiatan Pertanian Lokal</h4>
+              <p>Mata pencaharian utama warga</p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-item" data-category="budaya">
+          <img src="images/galery/5.jpg" alt="Kerajinan">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">
+              <h4>Pameran Kerajinan Tangan</h4>
+              <p>Kreativitas warga desa</p>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-item" data-category="alam">
+          <img src="images/galery/6.jpg" alt="Sungai">
+          <div class="gallery-overlay">
+            <div class="gallery-caption">
+              <h4>Keindahan Sungai Desa</h4>
+              <p>Sumber kehidupan warga</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Statistik Penduduk -->
-  <section>
-    <h2>Statistik Penduduk</h2>
-    <div class="stats-container">
-      <div class="stat-card">
-        <i class="fas fa-users"></i>
-        <h3>2,500</h3>
-        <p>Total Penduduk</p>
+  <!-- Statistik Detail -->
+  <section class="section stats-section" id="statistik">
+    <div class="container">
+      <div class="section-header">
+        <h2>Statistik Penduduk</h2>
+        <p>Data kependudukan Desa Gringsing yang terupdate</p>
       </div>
-      <div class="stat-card">
-        <i class="fas fa-male"></i>
-        <h3>1,200</h3>
-        <p>Laki-laki</p>
+      <div class="stats-container">
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="stat-content">
+            <h3 class="counter" data-target="2500">0</h3>
+            <p>Total Penduduk</p>
+            <div class="stat-trend positive">
+              <i class="fas fa-arrow-up"></i> +2.5%
+            </div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-male"></i>
+          </div>
+          <div class="stat-content">
+            <h3 class="counter" data-target="1200">0</h3>
+            <p>Laki-laki</p>
+            <div class="stat-trend positive">
+              <i class="fas fa-arrow-up"></i> +1.8%
+            </div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-female"></i>
+          </div>
+          <div class="stat-content">
+            <h3 class="counter" data-target="1300">0</h3>
+            <p>Perempuan</p>
+            <div class="stat-trend positive">
+              <i class="fas fa-arrow-up"></i> +3.2%
+            </div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-home"></i>
+          </div>
+          <div class="stat-content">
+            <h3 class="counter" data-target="600">0</h3>
+            <p>Kepala Keluarga</p>
+            <div class="stat-trend positive">
+              <i class="fas fa-arrow-up"></i> +1.5%
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="stat-card">
-        <i class="fas fa-female"></i>
-        <h3>1,300</h3>
-        <p>Perempuan</p>
-      </div>
-      <div class="stat-card">
-        <i class="fas fa-home"></i>
-        <h3>600</h3>
-        <p>Kepala Keluarga</p>
+      
+      <!-- Chart Section -->
+      <div class="chart-section">
+        <div class="chart-container">
+          <h3>Pertumbuhan Penduduk (5 Tahun Terakhir)</h3>
+          <canvas id="populationChart"></canvas>
+        </div>
+        <div class="chart-container">
+          <h3>Distribusi Usia</h3>
+          <canvas id="ageChart"></canvas>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Peta Desa -->
-  <section>
-    <h2>Peta Desa Gringsing</h2>
-    <div class="map-container">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15865.585108805415!2d109.7112562!3d-6.915006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwNTQnNTQuMCJTIDEwOcKwNDInNDAuNSJF!5e0!3m2!1sid!2sid!4v1635781234567" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Peta Desa Gringsing</h2>
+        <p>Lokasi dan batas wilayah Desa Gringsing</p>
+      </div>
+      <div class="map-container">
+        <div class="map-info">
+          <div class="map-details">
+            <h4>Informasi Lokasi</h4>
+            <ul>
+              <li><i class="fas fa-map-marker-alt"></i> Kecamatan: Gringsing</li>
+              <li><i class="fas fa-map"></i> Kabupaten: Batang</li>
+              <li><i class="fas fa-globe"></i> Provinsi: Jawa Tengah</li>
+              <li><i class="fas fa-ruler-combined"></i> Luas: 2.5 km²</li>
+            </ul>
+          </div>
+        </div>
+        <div class="map-frame">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15865.585108805415!2d109.7112562!3d-6.915006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwNTQnNTQuMCJTIDEwOcKwNDInNDAuNSJF!5e0!3m2!1sid!2sid!4v1635781234567" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Aduan Masyarakat -->
-  <section>
-    <h2>Aduan Masyarakat</h2>
-    <div class="complaint-form">
-      <input type="text" id="complaint-name" placeholder="Nama Lengkap">
-      <input type="email" id="complaint-email" placeholder="Email">
-      <textarea id="complaint-message" rows="5" placeholder="Deskripsi Aduan"></textarea>
-      <button onclick="submitComplaint()">Kirim Aduan</button>
+  <section class="section complaint-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Aduan Masyarakat</h2>
+        <p>Sampaikan keluhan dan saran untuk kemajuan desa</p>
+      </div>
+      <div class="complaint-container">
+        <div class="complaint-form">
+          <h3>Form Pengaduan</h3>
+          <form id="complaintForm">
+            <div class="form-group">
+              <label for="complaint-name">Nama Lengkap *</label>
+              <input type="text" id="complaint-name" required>
+            </div>
+            <div class="form-group">
+              <label for="complaint-email">Email</label>
+              <input type="email" id="complaint-email">
+            </div>
+            <div class="form-group">
+              <label for="complaint-phone">Nomor Telepon</label>
+              <input type="tel" id="complaint-phone">
+            </div>
+            <div class="form-group">
+              <label for="complaint-category">Kategori Aduan *</label>
+              <select id="complaint-category" required>
+                <option value="">Pilih Kategori</option>
+                <option value="infrastruktur">Infrastruktur</option>
+                <option value="layanan">Layanan Desa</option>
+                <option value="keamanan">Keamanan</option>
+                <option value="kesehatan">Kesehatan</option>
+                <option value="pendidikan">Pendidikan</option>
+                <option value="lainnya">Lainnya</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="complaint-subject">Judul Aduan *</label>
+              <input type="text" id="complaint-subject" required>
+            </div>
+            <div class="form-group">
+              <label for="complaint-message">Deskripsi Aduan *</label>
+              <textarea id="complaint-message" rows="5" required placeholder="Jelaskan detail aduan Anda..."></textarea>
+            </div>
+            <div class="form-group">
+              <label for="complaint-file">Lampiran (Opsional)</label>
+              <input type="file" id="complaint-file" accept="image/*,.pdf,.doc,.docx">
+            </div>
+            <button type="submit" class="submit-btn">
+              <i class="fas fa-paper-plane"></i> Kirim Aduan
+            </button>
+          </form>
+        </div>
+        <div class="complaint-info">
+          <h3>Informasi Pengaduan</h3>
+          <div class="info-item">
+            <i class="fas fa-clock"></i>
+            <div>
+              <h4>Waktu Respon</h4>
+              <p>Maksimal 3 hari kerja</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-shield-alt"></i>
+            <div>
+              <h4>Privasi Terjamin</h4>
+              <p>Data Anda akan dijaga kerahasiaannya</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-phone"></i>
+            <div>
+              <h4>Kontak Darurat</h4>
+              <p>(0295) 123456</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Artikel -->
-  <section>
-    <h2>Artikel Desa</h2>
-    <div class="card-container">
-      <div class="card">
-        <img src="images/article/1.jpg" alt="Lele">
-        <div class="card-content">
-          <h3>Budidaya Ikan Lele</h3>
-          <p>Cara mudah memanfaatkan lahan sempit untuk kolam lele skala rumah tangga.</p>
-        </div>
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Artikel Desa</h2>
+        <p>Artikel informatif seputar pertanian, UMKM, dan kehidupan desa</p>
       </div>
-      <div class="card">
-        <img src="images/article/2.jpg" alt="Organik">
-        <div class="card-content">
-          <h3>Pertanian Organik</h3>
-          <p>Warga mulai menerapkan pertanian ramah lingkungan dengan hasil menjanjikan.</p>
+      <div class="card-container">
+        <div class="card article-card">
+          <div class="card-image">
+            <img src="images/article/1.jpg" alt="Budidaya Lele">
+            <div class="card-badge">Pertanian</div>
+          </div>
+          <div class="card-content">
+            <div class="card-meta">
+              <span class="date"><i class="fas fa-calendar"></i> 28 Juni 2025</span>
+              <span class="author"><i class="fas fa-user"></i> Tim Pertanian</span>
+            </div>
+            <h3>Budidaya Ikan Lele Skala Rumah Tangga</h3>
+            <p>Cara mudah memanfaatkan lahan sempit untuk kolam lele skala rumah tangga dengan hasil yang menjanjikan.</p>
+            <div class="article-tags">
+              <span class="tag">Pertanian</span>
+              <span class="tag">Lele</span>
+              <span class="tag">UMKM</span>
+            </div>
+            <button class="read-more" onclick="showArticleDetail(1)">
+              Baca Selengkapnya <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="card">
-        <img src="images/article/3.jpg" alt="UMKM">
-        <div class="card-content">
-          <h3>UMKM Desa</h3>
-          <p>Kisah sukses pengrajin batik lokal yang mampu menembus pasar nasional.</p>
+        <div class="card article-card">
+          <div class="card-image">
+            <img src="images/article/2.jpg" alt="Pertanian Organik">
+            <div class="card-badge">Organik</div>
+          </div>
+          <div class="card-content">
+            <div class="card-meta">
+              <span class="date"><i class="fas fa-calendar"></i> 25 Juni 2025</span>
+              <span class="author"><i class="fas fa-user"></i> Tim Lingkungan</span>
+            </div>
+            <h3>Pertanian Organik: Masa Depan Pertanian</h3>
+            <p>Warga mulai menerapkan pertanian ramah lingkungan dengan hasil yang menjanjikan dan berkelanjutan.</p>
+            <div class="article-tags">
+              <span class="tag">Organik</span>
+              <span class="tag">Lingkungan</span>
+              <span class="tag">Pertanian</span>
+            </div>
+            <button class="read-more" onclick="showArticleDetail(2)">
+              Baca Selengkapnya <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card article-card">
+          <div class="card-image">
+            <img src="images/article/3.jpg" alt="UMKM">
+            <div class="card-badge">UMKM</div>
+          </div>
+          <div class="card-content">
+            <div class="card-meta">
+              <span class="date"><i class="fas fa-calendar"></i> 22 Juni 2025</span>
+              <span class="author"><i class="fas fa-user"></i> Tim UMKM</span>
+            </div>
+            <h3>Kisah Sukses UMKM Desa</h3>
+            <p>Kisah inspiratif pengrajin batik lokal yang mampu menembus pasar nasional dan meningkatkan ekonomi desa.</p>
+            <div class="article-tags">
+              <span class="tag">UMKM</span>
+              <span class="tag">Batik</span>
+              <span class="tag">Sukses</span>
+            </div>
+            <button class="read-more" onclick="showArticleDetail(3)">
+              Baca Selengkapnya <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer>
-    <div class="footer-box">
-      <div class="footer-col">
-        <h4>Profil Desa</h4>
-        <p>Desa Gringsing merupakan desa yang berlokasi di Kabupaten Batang, Jawa Tengah. Berbasis pertanian dan UMKM.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Kontak</h4>
-        <p><i class="fas fa-map-marker-alt"></i> Balai Desa Gringsing, Batang</p>
-        <p><i class="fas fa-phone"></i> (0295) 123456</p>
-        <p><i class="fas fa-envelope"></i> info@gringsing.desa.id</p>
-      </div>
-      <div class="footer-col">
-        <h4>Sosial Media</h4>
-        <a href="#"><i class="fab fa-facebook"></i> Facebook</a><br/>
-        <a href="#"><i class="fab fa-instagram"></i> Instagram</a><br/>
-        <a href="#"><i class="fab fa-youtube"></i> YouTube</a>
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <div class="footer-logo">
+              <img src="images/logo-desa.png" alt="Logo Desa" class="logo-img">
+              <h4>Desa Gringsing</h4>
+            </div>
+            <p>Desa Gringsing merupakan desa yang berlokasi di Kabupaten Batang, Jawa Tengah. Berbasis pertanian dan UMKM dengan visi menjadi desa yang maju, mandiri, dan sejahtera.</p>
+            <div class="social-links">
+              <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h4>Layanan Cepat</h4>
+            <ul class="footer-links">
+              <li><a href="#layanan">Surat Pengantar</a></li>
+              <li><a href="#layanan">SKCK</a></li>
+              <li><a href="#layanan">IMB</a></li>
+              <li><a href="#layanan">Bantuan Sosial</a></li>
+              <li><a href="#layanan">Data Penduduk</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Informasi</h4>
+            <ul class="footer-links">
+              <li><a href="#profil">Profil Desa</a></li>
+              <li><a href="#berita">Berita & Pengumuman</a></li>
+              <li><a href="#galeri">Galeri Foto</a></li>
+              <li><a href="#statistik">Statistik</a></li>
+              <li><a href="#kontak">Kontak</a></li>
+            </ul>
+          </div>
+          <div class="footer-col" id="kontak">
+            <h4>Kontak</h4>
+            <div class="contact-info">
+              <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                  <h5>Alamat</h5>
+                  <p>Balai Desa Gringsing, Kec. Gringsing, Kab. Batang, Jawa Tengah</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <div>
+                  <h5>Telepon</h5>
+                  <p>(0295) 123456</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <div>
+                  <h5>Email</h5>
+                  <p>info@gringsing.desa.id</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-clock"></i>
+                <div>
+                  <h5>Jam Kerja</h5>
+                  <p>Senin - Jumat: 08:00 - 16:00</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="footer-bottom">
-      © 2025 Pemerintah Desa Gringsing. Semua Hak Dilindungi.
+      <div class="container">
+        <div class="footer-bottom-content">
+          <p>&copy; 2025 Pemerintah Desa Gringsing. Semua Hak Dilindungi.</p>
+          <div class="footer-bottom-links">
+            <a href="#">Kebijakan Privasi</a>
+            <a href="#">Syarat & Ketentuan</a>
+            <a href="#">Peta Situs</a>
+          </div>
+        </div>
+      </div>
     </div>
   </footer>
 
   <!-- Back to Top Button -->
-  <button id="back-to-top" title="Kembali ke atas"><i class="fas fa-arrow-up"></i></button>
+  <button id="back-to-top" title="Kembali ke atas">
+    <i class="fas fa-arrow-up"></i>
+  </button>
 
-  <script>
-    // Loading animation
-    window.addEventListener('load', () => {
-      document.getElementById('loading').style.display = 'none';
-    });
+  <!-- Notification Toast -->
+  <div id="toast" class="toast">
+    <div class="toast-content">
+      <i class="toast-icon"></i>
+      <span class="toast-message"></span>
+    </div>
+  </div>
 
-    // Hamburger menu
-    const hamburger = document.querySelector('.hamburger');
-    const navRight = document.querySelector('.nav-right');
-    const navLinks = document.querySelector('.nav-left .nav-links');
-    hamburger.addEventListener('click', () => {
-      navRight.classList.toggle('active');
-      navLinks.classList.toggle('active');
-    });
-
-    // Search modal
-    const searchBtn = document.getElementById('search-btn');
-    const searchModal = document.getElementById('search-modal');
-    searchBtn.addEventListener('click', () => {
-      searchModal.style.display = 'flex';
-    });
-
-    searchModal.addEventListener('click', (e) => {
-      if (e.target === searchModal) {
-        searchModal.style.display = 'none';
-      }
-    });
-
-    function search() {
-      const query = document.getElementById('search-input').value;
-      alert('Mencari: ' + query);
-    }
-
-    // Complaint submission
-    function submitComplaint() {
-      const name = document.getElementById('complaint-name').value;
-      const email = document.getElementById('complaint-email').value;
-      const message = document.getElementById('complaint-message').value;
-      if (name && email && message) {
-        alert('Aduan berhasil dikirim: ' + name);
-        document.getElementById('complaint-name').value = '';
-        document.getElementById('complaint-email').value = '';
-        document.getElementById('complaint-message').value = '';
-      } else {
-        alert('Harap isi semua kolom!');
-      }
-    }
-
-    // Dark mode toggle
-    const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.addEventListener('click', () => {
-      document.body.dataset.theme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
-      themeToggle.classList.toggle('fa-moon');
-      themeToggle.classList.toggle('fa-sun');
-    });
-
-    // Back to top button
-    const backToTop = document.getElementById('back-to-top');
-    window.addEventListener('scroll', () => {
-      backToTop.style.display = window.scrollY > 300 ? 'block' : 'none';
-    });
-
-    backToTop.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    // Carousel
-    let currentSlide = 0;
-    const carousel = document.getElementById('carousel');
-    const slides = document.querySelectorAll('.carousel-slide');
-    const indicators = document.querySelectorAll('.carousel-indicators span');
-    const totalSlides = slides.length;
-
-    function updateCarousel() {
-      carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
-      indicators.forEach((indicator, index) => {
-        indicator.classList.toggle('active', index === currentSlide);
-      });
-    }
-
-    function nextSlide() {
-      currentSlide = (currentSlide + 1) % totalSlides;
-      updateCarousel();
-    }
-
-    function prevSlide() {
-      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-      updateCarousel();
-    }
-
-    function goToSlide(index) {
-      currentSlide = index;
-      updateCarousel();
-    }
-
-    // Auto-slide every 5 seconds
-    setInterval(nextSlide, 5000);
-  </script>
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/home.js"></script>
 </body>
 </html>

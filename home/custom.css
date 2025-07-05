@@ -1,0 +1,406 @@
+/*------------------------------------------------------------------
+    File Name: custom.css
+-------------------------------------------------------------------*/
+
+/** ADD YOUR AWESOME CODES HERE **/
+
+/*.footer {
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+}*/
+/* List Group Base Styles */
+.list-group {
+    border-radius: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: var(--bs-list-group-item-padding-y) var(--bs-list-group-item-padding-x);
+    color: var(--bs-list-group-color);
+    text-decoration: none;
+    border: none;
+    transition: color 0.3s, background-color 0.3s;
+}
+
+.list-group-item:hover,
+.list-group-item.active {
+    background-color: #009688;
+    color: #fff;
+}
+
+/* List Group Item Specific Styles */
+.list-group-item:nth-child(1) i,
+.list-group-item:nth-child(1) span {
+    color: #ff9800;
+}
+
+.list-group-item:nth-child(2) i,
+.list-group-item:nth-child(2) span {
+    color: #673ab7;
+}
+
+.list-group-item:nth-child(3) i,
+.list-group-item:nth-child(3) span {
+    color: #009688;
+}
+
+.list-group-item:nth-child(4) i,
+.list-group-item:nth-child(4) span {
+    color: #ff5722;
+}
+
+.list-group-item:nth-child(5) i,
+.list-group-item:nth-child(5) span {
+    color: #2196f3;
+}
+
+/* Hover Effects */
+.list-group-item:nth-child(1):hover i,
+.list-group-item:nth-child(1):hover span,
+.list-group-item:nth-child(2):hover i,
+.list-group-item:nth-child(2):hover span,
+.list-group-item:nth-child(3):hover i,
+.list-group-item:nth-child(3):hover span,
+.list-group-item:nth-child(4):hover i,
+.list-group-item:nth-child(4):hover span,
+.list-group-item:nth-child(5):hover i,
+.list-group-item:nth-child(5):hover span {
+    color: #fff;
+}
+
+/* Active Effects */
+.list-group-item.active:nth-child(1) i,
+.list-group-item.active:nth-child(1) span,
+.list-group-item.active:nth-child(2) i,
+.list-group-item.active:nth-child(2) span,
+.list-group-item.active:nth-child(3) i,
+.list-group-item.active:nth-child(3) span,
+.list-group-item.active:nth-child(4) i,
+.list-group-item.active:nth-child(4) span,
+.list-group-item.active:nth-child(5) i,
+.list-group-item.active:nth-child(5) span {
+    color: #fff;
+}
+
+/* Nested List Group Styles */
+.list-group-list {
+    border-radius: 0;
+    background-color: #009688;
+    padding-left: 20px; /* Adjust as needed */
+}
+
+.list-group-list:hover {
+    background-color: #000;
+    color: #000;
+}
+
+.list-group-item-list {
+    position: relative;
+    display: block;
+    padding: var(--bs-list-group-item-padding-y) var(--bs-list-group-item-padding-x);
+    text-decoration: none;
+    background-color: #fff;
+    border: none;
+    color: #009688;
+    transition: color 0.3s, background-color 0.3s;
+}
+
+.list-group-item-list-list {
+    position: relative;
+    display: block;
+    padding: var(--bs-list-group-item-padding-y) var(--bs-list-group-item-padding-x);
+    text-decoration: none;
+    background-color: #fff;
+    border: none;
+    color: #009688;
+    transition: color 0.3s, background-color 0.3s;
+}
+
+/* List Group Item Specific Styles */
+.list-group-item-list-list:nth-child(1) i,
+.list-group-item-list-list:nth-child(1) span {
+    color: #ff9800;
+}
+
+.list-group-item-list-list:nth-child(2) i,
+.list-group-item-list-list:nth-child(2) span {
+    color: #673ab7;
+}
+
+.list-group-item-list-list:nth-child(3) i,
+.list-group-item-list-list:nth-child(3) span {
+    color: #009688;
+}
+
+.list-group-item-list-list:nth-child(4) i,
+.list-group-item-list-list:nth-child(4) span {
+    color: #ff5722;
+}
+
+.list-group-item-list-list:nth-child(5) i,
+.list-group-item-list-list:nth-child(5) span {
+    color: #2196f3;
+}
+
+/* Hover Effects */
+.list-group-item-list-list:nth-child(1):hover i,
+.list-group-item-list-list:nth-child(1):hover span,
+.list-group-item-list-list:nth-child(2):hover i,
+.list-group-item-list-list:nth-child(2):hover span,
+.list-group-item-list-list:nth-child(3):hover i,
+.list-group-item-list-list:nth-child(3):hover span,
+.list-group-item-list-list:nth-child(4):hover i,
+.list-group-item-list-list:nth-child(4):hover span,
+.list-group-item-list-list:nth-child(5):hover i,
+.list-group-item-list-list:nth-child(5):hover span {
+    color: #005b52;
+}
+
+.list-group-item-list-list:hover {
+    background-color: #009688;
+}
+
+.list-group-item-list-list:hover i,
+.list-group-item-list-list:hover span {
+    color: #005b52;
+}
+
+.list-group-item-list i {
+    color: #673ab7;
+}
+
+/* List Group Item Specific Styles */
+.list-group-item-list:nth-child(1) i,
+.list-group-item-list:nth-child(1) span {
+    color: #ff9800;
+}
+
+.list-group-item-list:nth-child(2) i,
+.list-group-item-list:nth-child(2) span {
+    color: #673ab7;
+}
+
+.list-group-item-list:nth-child(3) i,
+.list-group-item-list:nth-child(3) span {
+    color: #009688;
+}
+
+.list-group-item-list:nth-child(4) i,
+.list-group-item-list:nth-child(4) span {
+    color: #ff5722;
+}
+
+.list-group-item-list:nth-child(5) i,
+.list-group-item-list:nth-child(5) span {
+    color: #2196f3;
+}
+
+/* Hover Effects */
+.list-group-item-list:nth-child(1):hover i,
+.list-group-item-list:nth-child(1):hover span,
+.list-group-item-list:nth-child(2):hover i,
+.list-group-item-list:nth-child(2):hover span,
+.list-group-item-list:nth-child(3):hover i,
+.list-group-item-list:nth-child(3):hover span,
+.list-group-item-list:nth-child(4):hover i,
+.list-group-item-list:nth-child(4):hover span,
+.list-group-item-list:nth-child(5):hover i,
+.list-group-item-list:nth-child(5):hover span {
+    color: #fff;
+}
+
+.list-group-item-list:hover {
+    background-color: #005b52;
+}
+
+.list-group-item-list span {
+    color: #673ab7;
+}
+
+/* Styles for the dropdown toggle */
+.dropdown-toggle::after {
+    position: absolute;
+    right: 10px; /* Adjust as needed */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Correct the position */
+    font-size: 18px; /* Adjust the size */
+    color: inherit; /* Ensure it inherits color from the parent */
+    transition: transform 0.3s, color 0.3s; /* Ensure smooth transitions */
+}
+
+/* Hover effects for the dropdown toggle */
+.dropdown-toggle:hover {
+    color: #009688; /* Change text color on hover */
+}
+
+.dropdown-toggle:hover::after {
+    color: #fff; /* Change icon color on hover */
+}
+
+.dropdown-toggle[aria-expanded="true"]::after {
+    transform: rotate(-180deg); /* Rotate arrow when clicked */
+}
+
+
+/*DATA TABLES*/
+/* Ensure tha5 the demo table scrolls */
+/* Ensure that the demo table scrolls */
+.table thead th {
+    font-weight: 500;
+}
+
+.form-control-sm {
+    min-height: calc(1.5em + .5rem + calc(var(--bs-border-width)* 2));
+    padding: .5rem .75rem;
+    font-size: .875rem;
+    border-radius: var(--bs-border-radius-sm);
+    margin-bottom: 20px;
+}
+
+.dt-info {
+    margin-top: 20px;
+}
+
+div.dt-container div.dt-paging ul.pagination {
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+    th, td 
+    { 
+        white-space: nowrap;
+    }
+    div.dataTables_wrapper {
+        width: 800px;
+    }
+ 
+    th input {
+        width: 95%;
+    }
+
+    .table td, .table th {
+    padding: .75rem;
+    vertical-align: top;
+    border: 1px solid #dee2e6;
+}
+
+.dt-column-title input {
+    padding: 5px;
+    border: none;
+    color: red;
+}
+
+.dt-column-title input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: green;
+}
+ 
+.dt-column-title input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: green;
+  opacity: 0.5; /* Firefox */
+}
+ 
+.dt-column-title input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: green;
+}
+ 
+.dt-column-title input::-ms-input-placeholder { /* Microsoft Edge */
+  color: green;
+}
+ 
+.dt-column-title input::-moz-placeholder { /* Firefox 19+ */
+  color: green;
+}
+ 
+.dt-column-title input:-moz-placeholder { /* Firefox 18- */
+  color: green;
+}
+
+table.dataTable th.dt-type-numeric, table.dataTable th.dt-type-date, table.dataTable td.dt-type-numeric, table.dataTable td.dt-type-date {
+    text-align: left;
+}
+
+
+/*BREADCRUMB*/
+
+/* Style the list */
+.breadcrumb {
+    padding: 0;
+    margin: 0;
+}
+
+/* Display list items side by side */
+ul.breadcrumb li {
+  display: inline;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.breadcrumb li+li:before {
+  padding: 8px;
+  color: black;
+  content: "/\00a0";
+}
+
+/* Add a color to all links inside the list */
+ul.breadcrumb li a {
+  color: #009688;
+  text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+ul.breadcrumb li a:hover {
+  color: #888;
+  text-decoration: underline;
+}
+
+
+.button {
+  background-color: #04AA6D; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+
+/*CUSTOM INPUT FILE*/
+.form-control-user {
+    line-height: 3;
+}
+
+/*FORM DROPDOWN*/
+.form-floating>.form-control-plaintext:focus, .form-floating>.form-control-plaintext:not(:placeholder-shown), .form-floating>.form-control:focus, .form-floating>.form-control:not(:placeholder-shown) {
+    padding-top: 1.625rem;
+    padding-bottom: .625rem;
+}
+
+.form-control-dropdown {
+    padding: .300rem .75rem; /* Padding yang serupa dengan input lainnya */
+    line-height: 1.5; /* Tinggi garis yang konsisten */
+    border-radius: 5px; /* Pastikan border-radius sama */
+    border: 1px solid #ccc; /* Konsistensi border */
+    font-size: 16px; /* Ukuran font yang serupa */
+    background-color: #f8f9fa; /* Warna latar belakang yang sama */
+    color: #495057; /* Warna teks yang konsisten */
+}
+
+.form-control-dropdown:focus {
+    border-color: #04AA6D; /* Warna border saat fokus */
+    outline: none; /* Hilangkan outline default */
+}
+
+
+/*.profile_img {
+    float: left;
+    margin-right: 20px;
+    align-content: center;
+}*/
