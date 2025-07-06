@@ -5,6 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dashboard Admin - Desa Gringsing</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+  
+  <!-- jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  
+  <!-- DataTables JS -->
+  <script type="text/javascript" src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  
   <link rel="stylesheet" href="dashboard.css"/>
 </head>
 <body>
@@ -120,7 +139,7 @@
       <!-- Data Table -->
       <section class="dashboard-table">
         <h2>Data Surat Masuk Terbaru</h2>
-        <table>
+        <table id="dashboardTable" class="display responsive nowrap" style="width:100%">
           <thead>
             <tr>
               <th>No</th>
@@ -151,6 +170,27 @@
               <td>IMB</td>
               <td>03/07/2025</td>
               <td><span class="badge badge-danger">Ditolak</span></td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Rina Marlina</td>
+              <td>Surat Nikah</td>
+              <td>02/07/2025</td>
+              <td><span class="badge badge-success">Selesai</span></td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Joko Widodo</td>
+              <td>Surat Domisili</td>
+              <td>01/07/2025</td>
+              <td><span class="badge badge-info">Pending</span></td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>Dewi Sartika</td>
+              <td>Surat Keterangan</td>
+              <td>30/06/2025</td>
+              <td><span class="badge badge-warning">Proses</span></td>
             </tr>
           </tbody>
         </table>

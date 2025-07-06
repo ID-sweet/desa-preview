@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Surat Masuk - Desa Gringsing</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
   <style>
     :root {
       --primary: #1f2c39;
@@ -312,6 +324,50 @@
         width: 100%;
       }
 
+      /* Badge styles */
+      .badge {
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .badge-success {
+        background-color: #28a745;
+        color: white;
+      }
+
+      .badge-warning {
+        background-color: #ffc107;
+        color: #212529;
+      }
+
+      .badge-danger {
+        background-color: #dc3545;
+        color: white;
+      }
+
+      .badge-info {
+        background-color: #17a2b8;
+        color: white;
+      }
+
+      /* DataTables customization */
+      .dataTables_wrapper .dataTables_length,
+      .dataTables_wrapper .dataTables_filter {
+        margin-bottom: 15px;
+      }
+
+      .dataTables_wrapper .dataTables_info {
+        margin-top: 15px;
+      }
+
+      .dataTables_wrapper .dataTables_paginate {
+        margin-top: 15px;
+      }
+
       .footer-box {
         flex-direction: column;
         align-items: center;
@@ -357,8 +413,7 @@
   <div class="main-content">
     <div class="table-container">
       <h2>Data Surat Masuk</h2>
-      <button class="download-btn" onclick="downloadCSV()">Unduh CSV</button>
-      <table id="suratMasukTable">
+      <table id="suratMasukTable" class="display responsive nowrap" style="width:100%">
         <thead>
           <tr>
             <th>No</th>
@@ -376,7 +431,7 @@
             <td>01 Juni 2025</td>
             <td>Kantor Camat Batang</td>
             <td>Pengumuman</td>
-            <td>Sedang Diproses</td>
+            <td><span class="badge badge-warning">Sedang Diproses</span></td>
           </tr>
           <tr>
             <td>2</td>
@@ -384,7 +439,7 @@
             <td>05 Juni 2025</td>
             <td>Dinas Pertanian</td>
             <td>Laporan</td>
-            <td>Selesai</td>
+            <td><span class="badge badge-success">Selesai</span></td>
           </tr>
           <tr>
             <td>3</td>
@@ -392,7 +447,7 @@
             <td>10 Juni 2025</td>
             <td>Bappeda Kabupaten</td>
             <td>Permohonan Dana</td>
-            <td>Pending</td>
+            <td><span class="badge badge-info">Pending</span></td>
           </tr>
           <tr>
             <td>4</td>
@@ -400,7 +455,7 @@
             <td>15 Juni 2025</td>
             <td>Kementerian Desa</td>
             <td>Evaluasi</td>
-            <td>Sedang Diproses</td>
+            <td><span class="badge badge-warning">Sedang Diproses</span></td>
           </tr>
           <tr>
             <td>5</td>
@@ -408,7 +463,31 @@
             <td>20 Juni 2025</td>
             <td>Kelurahan Tetangga</td>
             <td>Koordinasi</td>
-            <td>Selesai</td>
+            <td><span class="badge badge-success">Selesai</span></td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>SM/006/2025</td>
+            <td>25 Juni 2025</td>
+            <td>Dinas Kesehatan</td>
+            <td>Laporan Kesehatan</td>
+            <td><span class="badge badge-danger">Ditolak</span></td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>SM/007/2025</td>
+            <td>30 Juni 2025</td>
+            <td>Dinas Pendidikan</td>
+            <td>Permohonan Beasiswa</td>
+            <td><span class="badge badge-warning">Sedang Diproses</span></td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>SM/008/2025</td>
+            <td>05 Juli 2025</td>
+            <td>Dinas Sosial</td>
+            <td>Bantuan Sosial</td>
+            <td><span class="badge badge-success">Selesai</span></td>
           </tr>
         </tbody>
       </table>
@@ -480,27 +559,57 @@
       window.location.href = 'index.html';
     }
 
-    // Download CSV
-    function downloadCSV() {
-      const table = document.getElementById('suratMasukTable');
-      let csv = [];
-      const rows = table.querySelectorAll('tr');
-
-      rows.forEach(row => {
-        const cols = row.querySelectorAll('td, th');
-        const rowData = Array.from(cols).map(col => `"${col.textContent}"`);
-        csv.push(rowData.join(','));
+    // Initialize DataTables
+    $(document).ready(function() {
+      $('#suratMasukTable').DataTable({
+        responsive: true,
+        dom: 'Bfrtip',
+        buttons: [
+          {
+            extend: 'copy',
+            text: '<i class="fas fa-copy"></i> Salin',
+            className: 'btn btn-secondary'
+          },
+          {
+            extend: 'csv',
+            text: '<i class="fas fa-file-csv"></i> CSV',
+            className: 'btn btn-secondary'
+          },
+          {
+            extend: 'excel',
+            text: '<i class="fas fa-file-excel"></i> Excel',
+            className: 'btn btn-secondary'
+          },
+          {
+            extend: 'pdf',
+            text: '<i class="fas fa-file-pdf"></i> PDF',
+            className: 'btn btn-secondary'
+          },
+          {
+            extend: 'print',
+            text: '<i class="fas fa-print"></i> Cetak',
+            className: 'btn btn-secondary'
+          }
+        ],
+        language: {
+          url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/id.json'
+        },
+        pageLength: 10,
+        lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Semua"]],
+        order: [[0, 'asc']],
+        columnDefs: [
+          {
+            targets: 0,
+            width: '50px'
+          },
+          {
+            targets: 5,
+            orderable: true,
+            searchable: true
+          }
+        ]
       });
-
-      const csvContent = 'data:text/csv;charset=utf-8,' + csv.join('\n');
-      const encodedUri = encodeURI(csvContent);
-      const link = document.createElement('a');
-      link.setAttribute('href', encodedUri);
-      link.setAttribute('download', 'surat_masuk_' + new Date().toLocaleDateString() + '.csv');
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
+    });
   </script>
 </body>
 </html>

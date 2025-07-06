@@ -90,4 +90,56 @@ links.forEach(link => {
     links.forEach(l => l.classList.remove('active'));
     this.classList.add('active');
   });
+});
+
+// Initialize DataTables
+$(document).ready(function() {
+  $('#dashboardTable').DataTable({
+    responsive: true,
+    dom: 'Bfrtip',
+    buttons: [
+      {
+        extend: 'copy',
+        text: '<i class="fas fa-copy"></i> Salin',
+        className: 'btn btn-secondary'
+      },
+      {
+        extend: 'csv',
+        text: '<i class="fas fa-file-csv"></i> CSV',
+        className: 'btn btn-secondary'
+      },
+      {
+        extend: 'excel',
+        text: '<i class="fas fa-file-excel"></i> Excel',
+        className: 'btn btn-secondary'
+      },
+      {
+        extend: 'pdf',
+        text: '<i class="fas fa-file-pdf"></i> PDF',
+        className: 'btn btn-secondary'
+      },
+      {
+        extend: 'print',
+        text: '<i class="fas fa-print"></i> Cetak',
+        className: 'btn btn-secondary'
+      }
+    ],
+    language: {
+      url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/id.json'
+    },
+    pageLength: 5,
+    lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Semua"]],
+    order: [[0, 'desc']],
+    columnDefs: [
+      {
+        targets: 0,
+        width: '50px'
+      },
+      {
+        targets: 4,
+        orderable: true,
+        searchable: true
+      }
+    ]
+  });
 }); 
