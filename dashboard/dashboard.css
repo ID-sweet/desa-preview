@@ -256,9 +256,9 @@ body {
   padding: 7px 14px 7px 10px;
   border-radius: 999px;
   transition: background-color 0.2s, box-shadow 0.2s;
-  box-shadow: 0 1px 4px rgba(31,44,57,0.04);
   position: relative;
 }
+
 .user-dropdown-toggle:hover, .user-dropdown.active .user-dropdown-toggle {
   background: #e8f8f6;
   box-shadow: 0 2px 8px rgba(31,44,57,0.10);
@@ -332,6 +332,34 @@ body {
   margin: 8px 0;
   border: none;
   z-index: 2;
+}
+
+div.dt-buttons>.dt-button, div.dt-buttons>div.dt-button-split .dt-button {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  margin-left: .167em;
+  margin-right: .167em;
+  margin-bottom: .333em;
+  padding: .5em 1em;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: .88em;
+  line-height: 1.6em;
+  white-space: nowrap;
+  color: #1f2c39;
+  overflow: hidden;
+  background-color: #1abc9c;
+  background: #1abc9c;
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr="rgba(230, 230, 230, 0.1)", EndColorStr="rgba(0, 0, 0, 0.1)");
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-decoration: none;
+  outline: none;
+  text-overflow: ellipsis;
 }
 
 /* Responsivitas Dashboard */
@@ -907,4 +935,71 @@ html, body, .dashboard-wrapper, .main-content, .dashboard-header {
 /* Reset box-sizing untuk semua elemen */
 * {
   box-sizing: border-box;
+}
+
+/* Logout Message Styling */
+.logout-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(26, 188, 156, 0.95);
+  color: white;
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(26, 188, 156, 0.3);
+  z-index: 9999;
+  animation: logoutSlideIn 0.3s ease-out;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.logout-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.logout-content i {
+  font-size: 1.3rem;
+  color: #fff;
+}
+
+.logout-content p {
+  margin: 0;
+  color: #fff;
+}
+
+@keyframes logoutSlideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Responsive untuk logout message */
+@media (max-width: 768px) {
+  .logout-message {
+    padding: 16px 24px;
+    margin: 0 20px;
+    width: calc(100% - 40px);
+    max-width: 300px;
+  }
+  
+  .logout-content {
+    font-size: 1rem;
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+  
+  .logout-content i {
+    font-size: 1.2rem;
+  }
 } 

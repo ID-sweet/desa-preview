@@ -66,7 +66,7 @@
           <a href="#" class="sidebar-link"><i class="fas fa-cog"></i> <span>Pengaturan</span></a>
         </div>
         <div class="sidebar-logout">
-          <a href="#" class="sidebar-link"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+          <a href="#" class="sidebar-link" id="sidebar-logout"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
         </div>
       </nav>
     </aside>
@@ -96,7 +96,7 @@
               Pengaturan
             </a>
             <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
+            <a href="#" class="dropdown-item" id="header-logout">
               <i class="fas fa-sign-out-alt"></i>
               Logout
             </a>
@@ -187,7 +187,7 @@
             </tr>
             <tr>
               <td>6</td>
-              <td>Dewi Sartika</td>
+              <td>Dewi Lestari</td>
               <td>Surat Keterangan</td>
               <td>30/06/2025</td>
               <td><span class="badge badge-warning">Proses</span></td>
@@ -198,5 +198,70 @@
     </main>
   </div>
   <script src="dashboard.js"></script>
+  
+  <!-- Logout Script -->
+  <script>
+    // Logout functionality
+    function handleLogout() {
+      // Tampilkan konfirmasi logout
+      if (confirm('Apakah Anda yakin ingin keluar dari sistem?')) {
+        // Hapus data session/localStorage jika ada
+        localStorage.removeItem('adminLoggedIn');
+        sessionStorage.removeItem('adminSession');
+        
+        // Tampilkan pesan logout
+        showLogoutMessage();
+        
+        // Redirect ke halaman login setelah delay
+        setTimeout(() => {
+          window.location.href = '../login.html';
+        }, 2000);
+      }
+    }
+    
+    // Fungsi untuk menampilkan pesan logout
+    function showLogoutMessage() {
+      // Buat elemen pesan
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'logout-message';
+      messageDiv.innerHTML = `
+        <div class="logout-content">
+          <i class="fas fa-check-circle"></i>
+          <p>Logout berhasil! Mengarahkan ke halaman login...</p>
+        </div>
+      `;
+      
+      // Tambahkan ke body
+      document.body.appendChild(messageDiv);
+      
+      // Hapus pesan setelah 2 detik
+      setTimeout(() => {
+        if (messageDiv.parentNode) {
+          messageDiv.parentNode.removeChild(messageDiv);
+        }
+      }, 2000);
+    }
+    
+    // Event listeners untuk logout
+    document.addEventListener('DOMContentLoaded', function() {
+      // Logout dari sidebar
+      const sidebarLogout = document.getElementById('sidebar-logout');
+      if (sidebarLogout) {
+        sidebarLogout.addEventListener('click', function(e) {
+          e.preventDefault();
+          handleLogout();
+        });
+      }
+      
+      // Logout dari header dropdown
+      const headerLogout = document.getElementById('header-logout');
+      if (headerLogout) {
+        headerLogout.addEventListener('click', function(e) {
+          e.preventDefault();
+          handleLogout();
+        });
+      }
+    });
+  </script>
 </body>
 </html> 

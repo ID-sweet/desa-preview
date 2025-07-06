@@ -1949,14 +1949,52 @@ body {
   border: 1px solid var(--border);
 }
 
-/* Tombol Copy - Primary Color */
-.dt-button.buttons-copy {
-  background: var(--primary) !important;
+/* Override DataTables default button styling dengan specificity sangat tinggi */
+body div.dt-buttons > .dt-button,
+body div.dt-buttons > div.dt-button-split .dt-button,
+html body div.dt-buttons > .dt-button,
+html body div.dt-buttons > div.dt-button-split .dt-button,
+body .dt-buttons .dt-button,
+html body .dt-buttons .dt-button {
+  position: relative !important;
+  display: inline-block !important;
+  box-sizing: border-box !important;
+  margin-left: 0.167em !important;
+  margin-right: 0.167em !important;
+  margin-bottom: 0.333em !important;
+  padding: 8px 16px !important;
+  border-radius: var(--border-radius) !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  line-height: 1.6em !important;
+  transition: var(--transition) !important;
+  border: 1px solid !important;
   color: white !important;
-  border: 1px solid var(--primary) !important;
 }
 
-.dt-button.buttons-copy:hover {
+/* Tombol Copy - Primary Color */
+body div.dt-buttons > .dt-button.buttons-copy,
+body div.dt-buttons > div.dt-button-split .dt-button.buttons-copy,
+html body div.dt-buttons > .dt-button.buttons-copy,
+html body div.dt-buttons > div.dt-button-split .dt-button.buttons-copy,
+body .dt-buttons .dt-button.buttons-copy,
+html body .dt-buttons .dt-button.buttons-copy,
+body .dt-button.buttons-copy,
+html body .dt-button.buttons-copy {
+  background: var(--primary) !important;
+  color: white !important;
+  border-color: var(--primary) !important;
+}
+
+body div.dt-buttons > .dt-button.buttons-copy:hover,
+body div.dt-buttons > div.dt-button-split .dt-button.buttons-copy:hover,
+html body div.dt-buttons > .dt-button.buttons-copy:hover,
+html body div.dt-buttons > div.dt-button-split .dt-button.buttons-copy:hover,
+body .dt-buttons .dt-button.buttons-copy:hover,
+html body .dt-buttons .dt-button.buttons-copy:hover,
+body .dt-button.buttons-copy:hover,
+html body .dt-button.buttons-copy:hover {
   background: var(--primary-dark) !important;
   border-color: var(--primary-dark) !important;
   transform: translateY(-1px) !important;
@@ -1964,13 +2002,27 @@ body {
 }
 
 /* Tombol CSV - Secondary Color */
-.dt-button.buttons-csv {
+body div.dt-buttons > .dt-button.buttons-csv,
+body div.dt-buttons > div.dt-button-split .dt-button.buttons-csv,
+html body div.dt-buttons > .dt-button.buttons-csv,
+html body div.dt-buttons > div.dt-button-split .dt-button.buttons-csv,
+body .dt-buttons .dt-button.buttons-csv,
+html body .dt-buttons .dt-button.buttons-csv,
+body .dt-button.buttons-csv,
+html body .dt-button.buttons-csv {
   background: var(--secondary) !important;
   color: white !important;
-  border: 1px solid var(--secondary) !important;
+  border-color: var(--secondary) !important;
 }
 
-.dt-button.buttons-csv:hover {
+body div.dt-buttons > .dt-button.buttons-csv:hover,
+body div.dt-buttons > div.dt-button-split .dt-button.buttons-csv:hover,
+html body div.dt-buttons > .dt-button.buttons-csv:hover,
+html body div.dt-buttons > div.dt-button-split .dt-button.buttons-csv:hover,
+body .dt-buttons .dt-button.buttons-csv:hover,
+html body .dt-buttons .dt-button.buttons-csv:hover,
+body .dt-button.buttons-csv:hover,
+html body .dt-button.buttons-csv:hover {
   background: var(--secondary-dark) !important;
   border-color: var(--secondary-dark) !important;
   transform: translateY(-1px) !important;
@@ -1978,13 +2030,27 @@ body {
 }
 
 /* Tombol Excel - Success Color */
-.dt-button.buttons-excel {
+body div.dt-buttons > .dt-button.buttons-excel,
+body div.dt-buttons > div.dt-button-split .dt-button.buttons-excel,
+html body div.dt-buttons > .dt-button.buttons-excel,
+html body div.dt-buttons > div.dt-button-split .dt-button.buttons-excel,
+body .dt-buttons .dt-button.buttons-excel,
+html body .dt-buttons .dt-button.buttons-excel,
+body .dt-button.buttons-excel,
+html body .dt-button.buttons-excel {
   background: var(--success) !important;
   color: white !important;
-  border: 1px solid var(--success) !important;
+  border-color: var(--success) !important;
 }
 
-.dt-button.buttons-excel:hover {
+body div.dt-buttons > .dt-button.buttons-excel:hover,
+body div.dt-buttons > div.dt-button-split .dt-button.buttons-excel:hover,
+html body div.dt-buttons > .dt-button.buttons-excel:hover,
+html body div.dt-buttons > div.dt-button-split .dt-button.buttons-excel:hover,
+body .dt-buttons .dt-button.buttons-excel:hover,
+html body .dt-buttons .dt-button.buttons-excel:hover,
+body .dt-button.buttons-excel:hover,
+html body .dt-button.buttons-excel:hover {
   background: var(--success-light) !important;
   border-color: var(--success-light) !important;
   transform: translateY(-1px) !important;
@@ -1992,13 +2058,27 @@ body {
 }
 
 /* Tombol PDF - Accent Color */
-.dt-button.buttons-pdf {
+body div.dt-buttons > .dt-button.buttons-pdf,
+body div.dt-buttons > div.dt-button-split .dt-button.buttons-pdf,
+html body div.dt-buttons > .dt-button.buttons-pdf,
+html body div.dt-buttons > div.dt-button-split .dt-button.buttons-pdf,
+body .dt-buttons .dt-button.buttons-pdf,
+html body .dt-buttons .dt-button.buttons-pdf,
+body .dt-button.buttons-pdf,
+html body .dt-button.buttons-pdf {
   background: var(--accent) !important;
   color: white !important;
-  border: 1px solid var(--accent) !important;
+  border-color: var(--accent) !important;
 }
 
-.dt-button.buttons-pdf:hover {
+body div.dt-buttons > .dt-button.buttons-pdf:hover,
+body div.dt-buttons > div.dt-button-split .dt-button.buttons-pdf:hover,
+html body div.dt-buttons > .dt-button.buttons-pdf:hover,
+html body div.dt-buttons > div.dt-button-split .dt-button.buttons-pdf:hover,
+body .dt-buttons .dt-button.buttons-pdf:hover,
+html body .dt-buttons .dt-button.buttons-pdf:hover,
+body .dt-button.buttons-pdf:hover,
+html body .dt-button.buttons-pdf:hover {
   background: var(--accent-dark) !important;
   border-color: var(--accent-dark) !important;
   transform: translateY(-1px) !important;
@@ -2006,28 +2086,39 @@ body {
 }
 
 /* Tombol Print - Warning Color */
-.dt-button.buttons-print {
+body div.dt-buttons > .dt-button.buttons-print,
+body div.dt-buttons > div.dt-button-split .dt-button.buttons-print,
+html body div.dt-buttons > .dt-button.buttons-print,
+html body div.dt-buttons > div.dt-button-split .dt-button.buttons-print,
+body .dt-buttons .dt-button.buttons-print,
+html body .dt-buttons .dt-button.buttons-print,
+body .dt-button.buttons-print,
+html body .dt-button.buttons-print {
   background: var(--warning) !important;
   color: white !important;
-  border: 1px solid var(--warning) !important;
+  border-color: var(--warning) !important;
 }
 
-.dt-button.buttons-print:hover {
+body div.dt-buttons > .dt-button.buttons-print:hover,
+body div.dt-buttons > div.dt-button-split .dt-button.buttons-print:hover,
+html body div.dt-buttons > .dt-button.buttons-print:hover,
+html body div.dt-buttons > div.dt-button-split .dt-button.buttons-print:hover,
+body .dt-buttons .dt-button.buttons-print:hover,
+html body .dt-buttons .dt-button.buttons-print:hover,
+body .dt-button.buttons-print:hover,
+html body .dt-button.buttons-print:hover {
   background: var(--warning-light) !important;
   border-color: var(--warning-light) !important;
   transform: translateY(-1px) !important;
   box-shadow: var(--shadow) !important;
 }
 
-/* Default button styling */
-.dt-button {
-  padding: 8px 16px !important;
+/* Default button styling untuk semua tombol */
+body div.dt-buttons > .dt-button,
+body div.dt-buttons > div.dt-button-split .dt-button,
+html body div.dt-buttons > .dt-button,
+html body div.dt-buttons > div.dt-button-split .dt-button {
   margin-right: 8px !important;
-  border-radius: var(--border-radius) !important;
-  font-size: 14px !important;
-  font-weight: 500 !important;
-  cursor: pointer !important;
-  transition: var(--transition) !important;
 }
 
 .dt-button:active {
@@ -2163,61 +2254,97 @@ body {
   background: var(--bg-gray) !important;
 }
 
-[data-theme="dark"] .dt-button {
+[data-theme="dark"] body div.dt-buttons > .dt-button,
+[data-theme="dark"] body div.dt-buttons > div.dt-button-split .dt-button,
+[data-theme="dark"] html body div.dt-buttons > .dt-button,
+[data-theme="dark"] html body div.dt-buttons > div.dt-button-split .dt-button {
   background: var(--secondary) !important;
 }
 
-[data-theme="dark"] .dt-button:hover {
+[data-theme="dark"] body div.dt-buttons > .dt-button:hover,
+[data-theme="dark"] body div.dt-buttons > div.dt-button-split .dt-button:hover,
+[data-theme="dark"] html body div.dt-buttons > .dt-button:hover,
+[data-theme="dark"] html body div.dt-buttons > div.dt-button-split .dt-button:hover {
   background: var(--secondary-dark) !important;
 }
 
-/* Dark theme untuk tombol spesifik */
-[data-theme="dark"] .dt-button.buttons-copy {
+/* Dark theme untuk tombol spesifik dengan specificity sangat tinggi */
+[data-theme="dark"] body div.dt-buttons > .dt-button.buttons-copy,
+[data-theme="dark"] body div.dt-buttons > div.dt-button-split .dt-button.buttons-copy,
+[data-theme="dark"] html body div.dt-buttons > .dt-button.buttons-copy,
+[data-theme="dark"] html body div.dt-buttons > div.dt-button-split .dt-button.buttons-copy {
   background: var(--primary) !important;
   border-color: var(--primary) !important;
 }
 
-[data-theme="dark"] .dt-button.buttons-copy:hover {
+[data-theme="dark"] body div.dt-buttons > .dt-button.buttons-copy:hover,
+[data-theme="dark"] body div.dt-buttons > div.dt-button-split .dt-button.buttons-copy:hover,
+[data-theme="dark"] html body div.dt-buttons > .dt-button.buttons-copy:hover,
+[data-theme="dark"] html body div.dt-buttons > div.dt-button-split .dt-button.buttons-copy:hover {
   background: var(--primary-dark) !important;
   border-color: var(--primary-dark) !important;
 }
 
-[data-theme="dark"] .dt-button.buttons-csv {
+[data-theme="dark"] body div.dt-buttons > .dt-button.buttons-csv,
+[data-theme="dark"] body div.dt-buttons > div.dt-button-split .dt-button.buttons-csv,
+[data-theme="dark"] html body div.dt-buttons > .dt-button.buttons-csv,
+[data-theme="dark"] html body div.dt-buttons > div.dt-button-split .dt-button.buttons-csv {
   background: var(--secondary) !important;
   border-color: var(--secondary) !important;
 }
 
-[data-theme="dark"] .dt-button.buttons-csv:hover {
+[data-theme="dark"] body div.dt-buttons > .dt-button.buttons-csv:hover,
+[data-theme="dark"] body div.dt-buttons > div.dt-button-split .dt-button.buttons-csv:hover,
+[data-theme="dark"] html body div.dt-buttons > .dt-button.buttons-csv:hover,
+[data-theme="dark"] html body div.dt-buttons > div.dt-button-split .dt-button.buttons-csv:hover {
   background: var(--secondary-dark) !important;
   border-color: var(--secondary-dark) !important;
 }
 
-[data-theme="dark"] .dt-button.buttons-excel {
+[data-theme="dark"] body div.dt-buttons > .dt-button.buttons-excel,
+[data-theme="dark"] body div.dt-buttons > div.dt-button-split .dt-button.buttons-excel,
+[data-theme="dark"] html body div.dt-buttons > .dt-button.buttons-excel,
+[data-theme="dark"] html body div.dt-buttons > div.dt-button-split .dt-button.buttons-excel {
   background: var(--success) !important;
   border-color: var(--success) !important;
 }
 
-[data-theme="dark"] .dt-button.buttons-excel:hover {
+[data-theme="dark"] body div.dt-buttons > .dt-button.buttons-excel:hover,
+[data-theme="dark"] body div.dt-buttons > div.dt-button-split .dt-button.buttons-excel:hover,
+[data-theme="dark"] html body div.dt-buttons > .dt-button.buttons-excel:hover,
+[data-theme="dark"] html body div.dt-buttons > div.dt-button-split .dt-button.buttons-excel:hover {
   background: var(--success-light) !important;
   border-color: var(--success-light) !important;
 }
 
-[data-theme="dark"] .dt-button.buttons-pdf {
+[data-theme="dark"] body div.dt-buttons > .dt-button.buttons-pdf,
+[data-theme="dark"] body div.dt-buttons > div.dt-button-split .dt-button.buttons-pdf,
+[data-theme="dark"] html body div.dt-buttons > .dt-button.buttons-pdf,
+[data-theme="dark"] html body div.dt-buttons > div.dt-button-split .dt-button.buttons-pdf {
   background: var(--accent) !important;
   border-color: var(--accent) !important;
 }
 
-[data-theme="dark"] .dt-button.buttons-pdf:hover {
+[data-theme="dark"] body div.dt-buttons > .dt-button.buttons-pdf:hover,
+[data-theme="dark"] body div.dt-buttons > div.dt-button-split .dt-button.buttons-pdf:hover,
+[data-theme="dark"] html body div.dt-buttons > .dt-button.buttons-pdf:hover,
+[data-theme="dark"] html body div.dt-buttons > div.dt-button-split .dt-button.buttons-pdf:hover {
   background: var(--accent-dark) !important;
   border-color: var(--accent-dark) !important;
 }
 
-[data-theme="dark"] .dt-button.buttons-print {
+[data-theme="dark"] body div.dt-buttons > .dt-button.buttons-print,
+[data-theme="dark"] body div.dt-buttons > div.dt-button-split .dt-button.buttons-print,
+[data-theme="dark"] html body div.dt-buttons > .dt-button.buttons-print,
+[data-theme="dark"] html body div.dt-buttons > div.dt-button-split .dt-button.buttons-print {
   background: var(--warning) !important;
   border-color: var(--warning) !important;
 }
 
-[data-theme="dark"] .dt-button.buttons-print:hover {
+[data-theme="dark"] body div.dt-buttons > .dt-button.buttons-print:hover,
+[data-theme="dark"] body div.dt-buttons > div.dt-button-split .dt-button.buttons-print:hover,
+[data-theme="dark"] html body div.dt-buttons > .dt-button.buttons-print:hover,
+[data-theme="dark"] html body div.dt-buttons > div.dt-button-split .dt-button.buttons-print:hover {
   background: var(--warning-light) !important;
   border-color: var(--warning-light) !important;
 }
@@ -2500,4 +2627,97 @@ body {
     padding: 25px;
     margin: 15px 0;
   }
+}
+
+/* CSS Override yang sangat spesifik untuk DataTables Buttons */
+.dt-button,
+.dt-buttons .dt-button,
+div.dt-buttons > .dt-button,
+div.dt-buttons > div.dt-button-split .dt-button {
+  background: var(--primary) !important;
+  color: white !important;
+  border: 1px solid var(--primary) !important;
+  border-radius: var(--border-radius) !important;
+  padding: 8px 16px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: var(--transition) !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  margin: 2px !important;
+  box-sizing: border-box !important;
+}
+
+.dt-button:hover,
+.dt-buttons .dt-button:hover,
+div.dt-buttons > .dt-button:hover,
+div.dt-buttons > div.dt-button-split .dt-button:hover {
+  background: var(--primary-dark) !important;
+  border-color: var(--primary-dark) !important;
+  color: white !important;
+  transform: translateY(-1px) !important;
+  box-shadow: var(--shadow) !important;
+}
+
+/* Specific button colors */
+.dt-button.buttons-copy,
+.dt-buttons .dt-button.buttons-copy {
+  background: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
+.dt-button.buttons-csv,
+.dt-buttons .dt-button.buttons-csv {
+  background: var(--secondary) !important;
+  border-color: var(--secondary) !important;
+}
+
+.dt-button.buttons-excel,
+.dt-buttons .dt-button.buttons-excel {
+  background: var(--success) !important;
+  border-color: var(--success) !important;
+}
+
+.dt-button.buttons-pdf,
+.dt-buttons .dt-button.buttons-pdf {
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+}
+
+.dt-button.buttons-print,
+.dt-buttons .dt-button.buttons-print {
+  background: var(--warning) !important;
+  border-color: var(--warning) !important;
+}
+
+/* Hover states for specific buttons */
+.dt-button.buttons-copy:hover,
+.dt-buttons .dt-button.buttons-copy:hover {
+  background: var(--primary-dark) !important;
+  border-color: var(--primary-dark) !important;
+}
+
+.dt-button.buttons-csv:hover,
+.dt-buttons .dt-button.buttons-csv:hover {
+  background: var(--secondary-dark) !important;
+  border-color: var(--secondary-dark) !important;
+}
+
+.dt-button.buttons-excel:hover,
+.dt-buttons .dt-button.buttons-excel:hover {
+  background: var(--success-light) !important;
+  border-color: var(--success-light) !important;
+}
+
+.dt-button.buttons-pdf:hover,
+.dt-buttons .dt-button.buttons-pdf:hover {
+  background: var(--accent-dark) !important;
+  border-color: var(--accent-dark) !important;
+}
+
+.dt-button.buttons-print:hover,
+.dt-buttons .dt-button.buttons-print:hover {
+  background: var(--warning-light) !important;
+  border-color: var(--warning-light) !important;
 } 
